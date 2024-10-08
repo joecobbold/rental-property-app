@@ -48,12 +48,12 @@ public class JdbcRenterDao implements RenterDao{
     }
 
     @Override
-    public boolean createRenter(Renter renter) {
+    public Renter createRenter(Renter renter) {
         String sql = "INSERT INTO renter (first_name, last_name, email, phone, profile_details) " +
-                "VALUES (?, ?, ?, ?, ?)";
-        int rowsAffected = template.update(sql, renter.getFirst_name(), renter.getLast_name(), renter.getEmail(),
+                "VALUES (?, ?, ?, ?, ?) returning renter_id";
+        int renterId = template.queryForObject(sql, int.class, renter.getFirst_name(), renter.getLast_name(), renter.getEmail(),
                 renter.getPhone(), renter.getProfile_details());
-        return rowsAffected > 0;
+        return getRenterById(renterId);
     }
 
     @Override

@@ -9,7 +9,7 @@ public interface RenterDao {
 
     Renter getRenterById(int id);
 
-    boolean createRenter(Renter newRenter);
+    Renter createRenter(Renter newRenter);
 
     boolean updateRenter(Renter updatedRenter);
 

@@ -52,13 +52,13 @@ public class JdbcRentalAgreementDao implements RentalAgreementDao{
     }
 
     @Override
-    public boolean createRentalAgreement(RentalAgreement newRentalAgreement) {
+    public RentalAgreement createRentalAgreement(RentalAgreement newRentalAgreement) {
         String sql = "INSERT INTO rental_agreement (renter_id, property_id, start_date, end_date, monthly_rent, deposit_amount, agreement) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
-        int rowsAffected = template.update(sql, newRentalAgreement.getRenter_id(), newRentalAgreement.getProperty_id(),
+                "VALUES (?, ?, ?, ?, ?, ?, ?) returning rental_agreement_id";
+        int rentalAgreementId = template.queryForObject(sql, int.class, newRentalAgreement.getRenter_id(), newRentalAgreement.getProperty_id(),
                 newRentalAgreement.getStart_date(), newRentalAgreement.getEnd_date(), newRentalAgreement.getMonthly_rent(),
                 newRentalAgreement.getDeposit_amount(), newRentalAgreement.getAgreement());
-        return rowsAffected > 0;
+        return getRentalAgreementById(rentalAgreementId);
     }
 
     @Override

@@ -52,14 +52,14 @@ public class JdbcPropertyDao implements PropertyDao{
     }
 
     @Override
-    public boolean createProperty(Property newProperty) {
+    public Property createProperty(Property newProperty) {
         String sql = "INSERT INTO property (address, city, state, zip_code, rent_price, bedrooms, bathrooms, square_feet, available, basement, description) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        int rowsAffected = template.update(sql, newProperty.getAddress(), newProperty.getCity(), newProperty.getState(),
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) returning property_id";
+        int propertyId = template.queryForObject(sql, int.class, newProperty.getAddress(), newProperty.getCity(), newProperty.getState(),
                 newProperty.getZipCode(), newProperty.getRentPrice(), newProperty.getBedrooms(),
                 newProperty.getBathrooms(), newProperty.getSquareFeet(), newProperty.isAvailable(), newProperty.isBasement(),
                 newProperty.getDescription());
-        return rowsAffected > 0;
+        return getPropertyById(propertyId);
     }
 
     @Override

@@ -12,10 +12,10 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping(path="/property")
-@PreAuthorize("isAuthenticated()")
+//@PreAuthorize("isAuthenticated()")
 public class PropertiesController {
 
 
@@ -29,6 +29,7 @@ public class PropertiesController {
 
 
 
+
     @GetMapping
     public List<Property> getAllProperties(){
         try {
@@ -39,6 +40,9 @@ public class PropertiesController {
     }
 
 
+
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping(path="/{id}")
     public Property getPropertyById(@PathVariable int id){
         try {
@@ -53,18 +57,20 @@ public class PropertiesController {
     }
 
 
+
+
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Property createProperty(@Valid @RequestBody Property newProperty) {
         try {
-            propertyDao.createProperty(newProperty);
-            return newProperty;
+            return propertyDao.createProperty(newProperty);
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error creating property", e);
         }
-        //return false;
     }
+
+
 
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -87,8 +93,9 @@ public class PropertiesController {
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error updating property", e);
         }
-
     }
+
+
 
 
     @PreAuthorize("hasRole('ADMIN')")

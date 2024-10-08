@@ -9,7 +9,7 @@ public interface RentalAgreementDao {
 
     RentalAgreement getRentalAgreementById(int id);
 
-    boolean createRentalAgreement(RentalAgreement newRentalAgreement);
+    RentalAgreement createRentalAgreement(RentalAgreement newRentalAgreement);
 
     boolean updateRentalAgreement(RentalAgreement updatedRentalAgreement);
 

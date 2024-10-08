@@ -3,6 +3,8 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.RentalAgreementDao;
 import com.techelevator.dao.RenterDao;
+import com.techelevator.exception.DaoException;
+import com.techelevator.model.Property;
 import com.techelevator.model.RentalAgreement;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -13,9 +15,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@RestController
 @CrossOrigin
-@RequestMapping("/rental_agreements")
+@RestController
+@RequestMapping("/rental_agreement")
 public class RentalAgreementsController {
 
     private final RentalAgreementDao rentalAgreementDao;
@@ -25,6 +27,20 @@ public class RentalAgreementsController {
         this.rentalAgreementDao = rentalAgreementDao;
         this.renterDao = renterDao;
     }
+
+
+
+
+    @GetMapping
+    public List<RentalAgreement> getAllRentalAgreements(){
+        try {
+            return rentalAgreementDao.getAllRentalAgreements();
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error fetching properties", e);
+        }
+    }
+
+
 
 
     @GetMapping("/{id}")
@@ -42,17 +58,6 @@ public class RentalAgreementsController {
 
 
 
-//    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-//    @GetMapping("/{id}")
-//    //@RequestMapping(path="/renter/{renterId}/rental_agreement")
-//    public RentalAgreement getRentalAgreementById(Integer id){
-//        RentalAgreement rentalAgreement = rentalAgreementDao.getRentalAgreementById(id);
-//        if (rentalAgreement == null) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No rental agreements found for ID: " + id);
-//        }
-//        return rentalAgreement;
-//    }
-
 
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/renter/{renterId}")
@@ -64,6 +69,8 @@ public class RentalAgreementsController {
         }
         return agreements;
     }
+
+
 
 
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
@@ -79,21 +86,21 @@ public class RentalAgreementsController {
 
 
 
-    //Just added need api endpoints for this
+
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public RentalAgreement createRentalAgreement(@Valid @RequestBody RentalAgreement newRentalAgreement) {
         try {
-            rentalAgreementDao.createRentalAgreement(newRentalAgreement);
-            return newRentalAgreement;
+            return rentalAgreementDao.createRentalAgreement(newRentalAgreement);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error creating rental agreement", e);
         }
     }
 
 
-    //Just added need api endpoints for this
+
+
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public RentalAgreement updateRentalAgreement(@PathVariable int id, @Valid @RequestBody RentalAgreement updatedRentalAgreement) {
@@ -110,7 +117,9 @@ public class RentalAgreementsController {
         }
     }
 
-    //Just added need api endpoints for this
+
+
+
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

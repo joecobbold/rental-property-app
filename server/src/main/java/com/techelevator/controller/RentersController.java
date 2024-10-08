@@ -11,9 +11,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@RestController
 @CrossOrigin
-@RequestMapping(path="/renters")
+@RestController
+@RequestMapping(path="/renter")
 @PreAuthorize("isAuthenticated()")
 public class RentersController {
 
@@ -54,8 +54,7 @@ public class RentersController {
     @PostMapping
     public Renter createRenter(@Valid @RequestBody Renter renter){
         try {
-            renterDao.createRenter(renter);
-            return renter;
+            return renterDao.createRenter(renter);
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error creating renter", e);
         }
@@ -81,7 +80,7 @@ public class RentersController {
     }
 
 
-    //Just added need api endpoints for thisGotchu
+
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")

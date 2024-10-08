@@ -46,8 +46,8 @@ public class JdbcRentalAgreementDaoTests extends BaseDaoTests{
     public void createRentalAgreement() {
         RentalAgreement newAgreement = new RentalAgreement(10,1, 1, Date.valueOf("2024-09-01"), Date.valueOf("2024-10-10"), 1500.00, 2000.00, "Tenant agrees to pay rent on the 1st of each month.");
 
-        boolean createdAgreement = rentalAgreementDao.createRentalAgreement(newAgreement);
-        if(createdAgreement){
+        RentalAgreement createdAgreement = rentalAgreementDao.createRentalAgreement(newAgreement);
+        if(createdAgreement != null){
             assertEquals(newAgreement, rentalAgreementDao.getRentalAgreementById(10));
         }
     }

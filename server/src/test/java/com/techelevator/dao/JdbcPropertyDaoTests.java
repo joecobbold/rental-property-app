@@ -48,8 +48,8 @@ public class JdbcPropertyDaoTests extends BaseDaoTests{
     public void createProperty() {
         Property newProperty = new Property(11,"123 Main St", "Anytown", "CA", "12345", 1500.00, 3, 2, 1500, true, false, "Cozy family home with backyard");
 
-        boolean createdAgreement = propertyDao.createProperty(newProperty);
-        if(createdAgreement){
+        Property createdAgreement = propertyDao.createProperty(newProperty);
+        if(createdAgreement != null){
             assertEquals(newProperty, propertyDao.getPropertyById(11));
         }
 
@@ -61,6 +61,7 @@ public class JdbcPropertyDaoTests extends BaseDaoTests{
     @Test
     public void updateProperty() {
         Property propertyToUpdate = propertyDao.getPropertyById(2);
+
         propertyToUpdate.setAddress("123 Update");
         propertyToUpdate.setCity("Columbus");
         propertyToUpdate.setState("Ohio");
@@ -72,6 +73,7 @@ public class JdbcPropertyDaoTests extends BaseDaoTests{
         propertyToUpdate.setAvailable(false);
         propertyToUpdate.setBasement(false);
         propertyToUpdate.setDescription("This is the updated property");
+
         boolean updatedAgreement = propertyDao.updateProperty(propertyToUpdate);
         if(updatedAgreement){
             assertEquals(propertyToUpdate, propertyDao.getPropertyById(2));

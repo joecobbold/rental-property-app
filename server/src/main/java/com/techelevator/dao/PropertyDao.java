@@ -9,7 +9,7 @@ public interface PropertyDao {
 
     Property getPropertyById(int id);
 
-    boolean createProperty(Property newProperty);
+    Property createProperty(Property newProperty);
 
     boolean updateProperty(Property updatedProperty);
 

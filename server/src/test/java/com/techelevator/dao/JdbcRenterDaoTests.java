@@ -28,7 +28,6 @@ public class JdbcRenterDaoTests extends BaseDaoTests {
     public void getAllRenters() {
         List<Renter> renters = renterDao.getAllRenters();
         assertFalse(renters.isEmpty());
-
     }
 
 
@@ -44,16 +43,39 @@ public class JdbcRenterDaoTests extends BaseDaoTests {
     public void createRenter() {
         Renter newRenter = new Renter(9, "Joe", "Cobbold", "joe.cobbold@example.com", "111-222-3333", "Joe created this new Renter");
 
-        boolean createdRenter = renterDao.createRenter(newRenter);
-        if(createdRenter){
+        Renter createdRenter = renterDao.createRenter(newRenter);
+        if(createdRenter != null){
             assertEquals(newRenter, renterDao.getRenterById(9));
         }
     }
 
 
+//    @Test
+//    public void updateRenter() {
+//    }
+
+
     @Test
     public void updateRenter() {
+        // Retrieve the existing renter to update
+        Renter renterToUpdate = renterDao.getRenterById(1);
+
+        // Modify properties of the renter
+        renterToUpdate.setFirst_name("UpdatedFirstName");
+        renterToUpdate.setLast_name("UpdatedLastName");
+        renterToUpdate.setEmail("updated.email@example.com");
+        renterToUpdate.setPhone("987-654-3210");
+        renterToUpdate.setProfile_details("Updated profile details");
+
+        boolean updatedRenter = renterDao.updateRenter(renterToUpdate);
+        if (updatedRenter) {
+            assertEquals(renterToUpdate, renterDao.getRenterById(1));
+        } else {
+            Assert.fail("Update failed");
+        }
     }
+
+
 
 
     @Test
