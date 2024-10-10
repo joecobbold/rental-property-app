@@ -2,23 +2,23 @@ import axios from 'axios';
 
 const PropertyService = {
   getAllProperties() {
-    return axios.get('/properties');
+    return axios.get('/property');
   },
 
   getPropertyById(propertyId) {
-    return axios.get(`/properties/${propertyId}`);
+    return axios.get(`/property/${propertyId}`);
   },
 
   createProperty(propertyData) {
-    return axios.post('/properties', propertyData);
+    return axios.post('/property', propertyData);
   },
 
   updateProperty(propertyId, propertyData) {
-    return axios.put(`/properties/${propertyId}`, propertyData);
+    return axios.put(`/property/${propertyId}`, propertyData);
   },
 
   deleteProperty(propertyId) {
-    return axios.delete(`/properties/${propertyId}`);
+    return axios.delete(`/property/${propertyId}`);
   }
 };
 

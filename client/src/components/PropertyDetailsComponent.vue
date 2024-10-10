@@ -18,42 +18,16 @@
 
   <template>
     <div>
-      <section class="homepageContent" id="contentWrapper">
-          <div class="mainSearch" id="searchWrap">
-            <h1 class = "mainTitle" id = "quickSearchMainTitle">Locate Your Perfect Home</h1>
-            <p>Connecting renters with their perfect home</p>
-          </div>
 
-          <div class = "quickSearch" id = "quickSearch">
-            <input type="text" id="searchBar" placeholder="Enter a city, neighborhood, or address" />
-            <button id="searchButton">Search</button>
-          </div>
-        </section>
 
         
         <section class="property-featured" id="property-featured">
-          <h2>Available rentals in Columbus, OH</h2>
-
-          <!-- Dynamic data--> <!-- New container for dynamic content -->
-          <div id="properties-container">
-            <div v-for="property in properties" v-bind:key="property.propertyId" class="property-placard" v-on:mouseover="property.hover = true"
-              @mouseleave="property.hover = false">
-              <img v-bind:src="property.imageUrl" alt="Property Image" class="property-placard-image">
-              <h3>{{ property.address }}</h3>
-              <p>{{ property.description }}</p>
-
-              <router-link v-bind:to="{ name: 'propertyDetailsView', params: {propertyId: property.propertyId}}">
-                <button>View Details</button>
-              </router-link>
-              
-              <p v-if="property.hover">Rent: ${{ property.rentPrice }}</p>
-            </div>
-          </div>
-          
+         
                     <!-- Selected property details (only displayed if a property is selected) -->
           <div v-if="selectedProperty" class="selected-property-details">
             <h2>Property Details for {{ selectedProperty.address }}</h2>
             <img v-bind:src="selectedProperty.imageUrl" alt="Selected Property Image" />
+            <p><strong>Property Id:</strong> {{ property.propertyId }}</p>
             <p><strong>City:</strong> {{ property.city }}</p>
             <p><strong>State:</strong> {{ property.state }}</p>
             <p><strong>Zip Code:</strong> {{ property.zip_code }}</p>
@@ -80,7 +54,7 @@
     data() {
     return {
       properties: [],  // Holds all property data
-      selectedProperty: null, 
+      selectedProperty: this.property, 
     };
   },
     props: {

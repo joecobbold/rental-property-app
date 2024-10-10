@@ -6,6 +6,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import LogoutView from '../views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import PropertyDetailsView from '../views/PropertyDetailsView.vue'
 
 
 /**
@@ -48,7 +49,25 @@ const routes = [
       meta: {
         requiresAuth: false
       }
-    }
+    },
+    {
+      path: "/property/:propertyId",
+      name: "propertyDetailsView",
+      component: PropertyDetailsView,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    // {
+    //   path: '/edit-property/:id',
+    //   name: 'editPropertyView',
+    //   component: EditPropertyView,
+    //   meta: {
+    //     requiresAuth: true, 
+    //     //isAdmin: true,      // need to look into this
+    //   },
+    // }
+    
   ];
 
 // Create the router

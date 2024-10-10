@@ -189,4 +189,4 @@ const ResourceService = {
   }
 };
 
-export { ResourceService };
+export default ResourceService;
