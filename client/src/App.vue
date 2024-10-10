@@ -1,19 +1,398 @@
 <template>
-  <div id="cart-app">
-    <header></header>
-    <nav>
-        <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token">
-          Logout
-        </router-link>
-        <router-link v-bind:to="{ name: 'login' }" v-else>Login</router-link>
-    </nav>
+  <div class="rental-property-app">
+    <header>
+      <nav>
+          <!-- Menu link -->
+          <div class="menu">
+              <a href="#" class="menu-toggle">Menu</a>
+              
+              <!-- Dropdown content (the links previously under li elements) -->
+              <ul class="menu-items">
+                  <li><a href="#home">Home</a></li>
+                  <li><a href="#addProperty">Add a Property</a></li>
+                  <li><a href="#manageRentals">Manage Rentals</a></li>
+              </ul>
+              <!-- <ul class="menu-items">
+                  <li><a href="#home">Home</a></li>
+                  <li><a href="#about">About</a></li>
+                  <li><a href="#services">Services</a></li>
+                  <li><a href="#contact">Contact</a></li>
+              </ul> -->
+          </div>
+      </nav>
+
+      <router-link v-bind:to="{ name: 'home' }" class="logo-link">
+        <div class="logo" id="logo">
+          <img src="./assets/BboldEnterprises.png" alt="Logo">
+        </div>
+      </router-link>
+
+      <router-link class="auth-links" v-bind:to="{ name: 'logout' }" v-if="this.$store.state.token" >
+        <button>Logout</button>
+      </router-link>
+      <router-link class="auth-links" v-bind:to="{ name: 'login' }" v-else>
+        <button>Login</button>
+      </router-link>
+
+      <!-- <div class="auth-links">
+          <a id='Sign Up' href="#">Sign Up</a> / <a id='Sign In' href="#">Sign In</a>
+      </div> -->
+
+    </header>
+
+
+
+
     <main>
       <router-view />
     </main>
-    <footer></footer>
+
+
+
+
+    <footer>
+      <h3>Follow us on</h3> <!--add icons with links next to this-->
+        <!-- <p>
+          <a href="https://www.facebook.com">Facebook</a> | 
+          <a href="https://www.twitter.com">Twitter</a> | 
+          <a href="https://www.linkedin.com">LinkedIn</a>
+        </p> -->
+        <p>
+          <a href="https://www.facebook.com">About</a> | 
+          <a href="https://www.twitter.com">Services</a> | 
+          <a href="https://www.linkedin.com">Contact Us</a>    <!-- eventually turn these into modals or send to a different page if there's time-->
+        </p>
+        <p> Copyright ©2024 Bbold Enterprises - Excellence Through Simplicity. All rights reserved!</p>
+
+    </footer>
   </div>
 </template>
 
-<style scoped>
+<style>
+/* Global settings */
+
+body {
+  background-color: #ffffff;
+}
+
+
+.rental-property-app {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+
+/**************************************************************************************************/
+/* HEADER GRID */
+header {
+    grid-area: header;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Left (menu), center (logo), right (auth-links) */
+    align-items: center;
+    background-color:#414e58;
+    color: #ffffff; 
+    height: 76px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.logo-link {
+    justify-self: center; 
+}
+
+.auth-links {
+    justify-self: end;
+}
+
+
+/*header styling*/
+/*Menu styling*/
+.menu-items {        /* Hide the dropdown by default */
+    display: none;
+    list-style: none;
+    margin: 10;
+    padding: 0;
+    background-color: #414e58; /* Match header background */
+    position: absolute;
+    top: 50px; /* Adjust this depending on your header height */
+}
+
+.menu:hover .menu-items {       /* Show dropdown when the menu is hovered */
+    display: block;
+}
+
+.menu-toggle {        /* Style for the menu links */
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #e4853c;
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.menu-toggle:hover {
+    background-color: black;
+}
+
+.menu-items li {        /* Dropdown item styling */
+    padding: 5px;
+}
+
+.menu-items li a {
+    color: #ffffff; /* Dropdown links color */
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    display: block;
+}
+
+.menu-items li a:hover {
+    background-color: #e4853c;
+}
+
+
+/* Logo styling */
+header .logo img {
+    height: 80px; /* Set the height of the logo image */
+    width: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure the image scales within given height */
+}
+
+
+/*Auth-links styling*/
+.auth-links a {
+    color: #ffffff; 
+    text-decoration: none;
+}
+
+.auth-links a:hover {
+    color: #e4853c; /* change link to Orange */
+    text-decoration: underline;
+}
+
+#li-links a {
+    color: #ffffff; /* Set the text color to white */
+    text-decoration: none; /* Remove underline */
+}
+
+#li-links a:hover {
+    color: #e4853c; /* change link to Orange */
+    text-decoration: underline;
+}
+
+
+#li-links {  /* Utility for ul */
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+
+/**************************************************************************************************/
+/*MAIN GRID*/
+/*Search area styling*/
+.mainSearch {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    height: 100%;
+    text-align: center;
+    padding: 20px;
+    margin-top: 0;
+}
+
+#searchWrap h1, #searchWrap p {
+    color: #ffffff;
+  }
+
+.mainTitle {
+    margin-bottom: 2px; /* Adjust the space between h1 and p */
+}
+
+  #quickSearch {   /*Search bar styling*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 0 auto; /* Center the container itself if needed */
+  }
+  
+  #searchBar {
+    width: 100%; 
+    max-width: 500px; /* Set a max-width to ensure it doesn't grow too large */
+    padding: 10px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    margin-right: 10px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+  
+  #searchButton {
+    padding: 10px 20px;
+    background-color: #e4853c;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #searchButton:hover {
+    background-color: black;
+  }
+  
+
+/* Main content styling*/
+.rental-property-app {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "header "
+        "main"
+        "footer";
+    height: 100vh;
+}
+
+#main-div {  /* main grid items */
+    grid-area: main;
+    background-color: #ffffff;
+    overflow: auto;
+}
+
+
+.homepageContent {
+    background-color:#306ba8;
+}
+
+
+
+/******************************************************************************/
+/* FOOTER GRID*/
+footer {
+    grid-area: footer;
+    background-color: #e4853c;
+    color: #ffffff;
+    font-size: 14px;
+    text-align: center;
+    height: 76px;
+    display: flex; /* Use Flexbox */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    padding: 5px 10px; /* Adjust padding to give more room for content */
+    box-sizing: border-box; /* Ensure padding is included in height */
+
+}
+
+footer h3 {
+    margin: 20px 0 0 0; 
+  }
+
+footer p {
+    margin: 2px 2px; /* Reduce margins around paragraphs */
+  }
+
+  footer p:last-of-type {
+    margin-bottom: 20px; /* Add desired bottom margin */
+}
+
+
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+/* MOBILE STYLING */
+/* Mobile View (425px and smaller) */
+@media screen and (max-width: 425px) {
+    /* main app adjustments */
+    .rental-property-app {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr auto;
+    }
+  
+    
+    /* Menu styling */
+    .menu {
+      display: block;
+    }
+  
+    .menu-items {
+      display: none;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      background-color: #414e58; /* Same as header background */
+    }
+  
+    .menu-toggle {
+      display: block;
+      color: white;
+      background-color: #414e58;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+  
+    .menu-toggle:hover {
+      background-color: #e4853c;
+    }
+  
+    .menu.active .menu-items {   /* Show the menu on click */
+      display: block;
+    }
+  
+    .menu-items li a {
+      display: block;
+      padding: 10px;
+      color: #ffffff;
+      text-decoration: none;
+      text-align: center;
+    }
+  
+    .menu-items li a:hover {
+      background-color: #e4853c;
+    }
+  
+   
+    .logo img {    /* Logo adjustments */
+      height: 60px;
+      width: auto;
+    }
+  
+    
+    .auth-links {   /* Auth links */
+      display: none; /* Hide auth-links on mobile */
+    }
+  
+   
+    #quickSearch {    /* Search bar */
+      flex-direction: column;
+    }
+  
+    #searchBar {
+      width: 100%;
+      margin: 10px 0;
+    }
+  
+    #searchButton {
+      width: 100%;
+    }
+}
+
 
 </style>
