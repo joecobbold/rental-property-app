@@ -14,7 +14,15 @@ public class Property {
     private boolean available;
     private boolean basement;
     private String description;
+    private String imageUrl;
 
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
     public void setPropertyId(int propertyId) {
         this.propertyId = propertyId;
@@ -113,7 +121,7 @@ public class Property {
         return basement;
     }
 
-    public Property(int propertyId, String address, String city, String state, String zipCode, double rentPrice, double bedrooms, double bathrooms, double squareFeet, boolean isAvailable, boolean hasBasement, String description) {
+    public Property(int propertyId, String address, String city, String state, String zipCode, double rentPrice, double bedrooms, double bathrooms, double squareFeet, boolean isAvailable, boolean hasBasement, String description, String imageUrl) {
         this.propertyId = propertyId;
         this.address = address;
         this.city = city;
@@ -126,6 +134,7 @@ public class Property {
         available = isAvailable;
         basement = hasBasement;
         this.description = description;
+        this.imageUrl = imageUrl;
     }
 
     @Override

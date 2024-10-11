@@ -17,24 +17,20 @@
   </template> -->
 
   <template>
-    <div>
-
-
-        
-        <section class="property-featured" id="property-featured">
-         
-                    <!-- Selected property details (only displayed if a property is selected) -->
-          <div v-if="selectedProperty" class="selected-property-details">
-            <h2>Property Details for {{ selectedProperty.address }}</h2>
-            <img v-bind:src="selectedProperty.imageUrl" alt="Selected Property Image" />
+    <div >
+        <section class="selected-property">
+          <!-- Selected property details -->
+          <div v-if="property" class="selected-property-details">
+            <h2>Property Details for {{ property.address }}</h2>
+            <img v-bind:src="property.imageUrl" alt="Selected Property Image" />
             <p><strong>Property Id:</strong> {{ property.propertyId }}</p>
             <p><strong>City:</strong> {{ property.city }}</p>
             <p><strong>State:</strong> {{ property.state }}</p>
-            <p><strong>Zip Code:</strong> {{ property.zip_code }}</p>
-            <p><strong>Rent Price:</strong> ${{ property.rent_price }}</p>
+            <p><strong>Zip Code:</strong> {{ property.zipCode }}</p>
+            <p><strong>Rent Price:</strong> ${{ property.rentPrice }}</p>
             <p><strong>Bedrooms:</strong> {{ property.bedrooms }}</p>
             <p><strong>Bathrooms:</strong> {{ property.bathrooms }}</p>
-            <p><strong>Square Feet:</strong> {{ property.square_feet }}</p>
+            <p><strong>Square Feet:</strong> {{ property.squareFeet }}</p>
             <p><strong>Available:</strong> {{ property.available ? 'Yes' : 'No' }}</p>
             <p><strong>Description:</strong> {{ property.description }}</p>
           </div>
@@ -43,30 +39,13 @@
   </template>
   
   <script>
-  //import RentalAgreementComponent from '../components/RentalAgreementComponent.vue';
-  import PropertyService from '../services/PropertyService.js';
-  import ResourceService from '../services/ResourceService.js';
-
- 
-  
-  
   export default {
-    data() {
-    return {
-      properties: [],  // Holds all property data
-      selectedProperty: this.property, 
-    };
-  },
     props: {
       property: {
         type: Object,
         required: true,
       },
     },
-      created() {
-    // Fetch properties using ResourceService when the component is created
-    this.properties = ResourceService.getAllProperties();
-  },
     computed: {
       createdDate() {
         let created = new Date(this.property.dateAdded);
@@ -83,19 +62,10 @@
   </script>
   
   <style scoped> 
-  /* header {
-    margin-bottom: 1rem;
-  }
-  h2 {
-    font-size: large;
-  }
-  .created {
-    margin-bottom: 1rem;
-  } */
 
   
 /***/
-.property-featured h2 {  /* property featured title */
+.selected-property h2 {  /* property featured title */
     margin-bottom: 20px; /* Space between the heading and the property cards */
     text-align: center; /* Center the heading */
     width: 100%;

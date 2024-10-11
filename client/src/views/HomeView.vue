@@ -1,25 +1,46 @@
 <template>
+  <!-- <div v-if="isLoading">
+    <loading-spinner id="spinner" v-bind:spin="true"/>
+  </div> -->
   <div id="main-div">
-    <property-component />
-    <rental-agreement-component/>
-    <renter-component/>
+    <property-list-component id="property"/>
+    <rental-agreement-component id="rental-agreement"/>
+    <renter-component id="renter"/>
 
   </div>
 </template>
 
 <script>
-import PropertyComponent from '../components/PropertyComponent.vue';
+import PropertyListComponent from '../components/PropertyListComponent.vue';
 import RentalAgreementComponent from '../components/RentalAgreementComponent.vue';
 import RenterComponent from '../components/RenterComponent.vue';
+import PropertyService from '../services/PropertyService.js';
+import RentalAgreementService from '../services/RentalAgreementService.js';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
+
 
 export default {
   components: {
-    PropertyComponent,
+    PropertyListComponent,
     RentalAgreementComponent,
     RenterComponent
-}
+},
 
-}
+
+
+    // Promise.all ([
+    //   PropertyService.getAllProperties(),
+    //   RentalAgreementService.getAllRentalAgreements(),
+    // ]).then(([propertyResponse, rentalAgreementResponse]) => {
+    //   this.$store.commit("SET_PROPERTIES", propertyResponse.data);
+    //   this.$store.commit("SET_RENTAL_AGREEMENTS", rentalAgreementResponse.data);
+    // }).catch( (error) => {
+    //   console.log(error);
+    // }).finally( () => {
+    //   this.isLoading = false;
+    // });
+  
+};
 </script>
 
 

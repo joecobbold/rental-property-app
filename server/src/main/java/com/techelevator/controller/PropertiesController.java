@@ -42,7 +42,7 @@ public class PropertiesController {
 
 
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    //@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping(path="/{id}")
     public Property getPropertyById(@PathVariable int id){
         try {

@@ -45,7 +45,8 @@ CREATE TABLE property (
     square_feet INT NOT NULL,
     available BOOLEAN DEFAULT TRUE,
     basement BOOLEAN DEFAULT FALSE,
-    description TEXT
+    description TEXT,
+    imageUrl VARCHAR (100)
 );
 
 CREATE TABLE rental_agreement (
@@ -86,17 +87,17 @@ INSERT INTO renter (first_name, last_name, email, phone, profile_details) VALUES
 ('Frank', 'Moore', 'frank.moore@example.com', '890-123-4567', 'Plays the guitar');
 
 -- property
-INSERT INTO property (address, city, state, zip_code, rent_price, bedrooms, bathrooms, square_feet, available, basement, description) VALUES
-('123 Main St', 'Anytown', 'CA', '12345', 1500.00, 3, 2, 1500, TRUE, FALSE, 'Cozy family home with backyard'),
-('456 Oak Ave', 'Sometown', 'NY', '67890', 1800.00, 4, 3, 2000, TRUE, TRUE, 'Spacious house with basement'),
-('789 Maple Blvd', 'Anothercity', 'TX', '23456', 1200.00, 2, 1, 1000, TRUE, FALSE, 'Modern apartment near downtown'),
-('321 Pine Dr', 'Yourtown', 'FL', '78901', 2200.00, 3, 2, 1800, TRUE, TRUE, 'Renovated townhouse with garage'),
-('654 Elm Ln', 'Somewhere', 'WA', '34567', 1700.00, 3, 2, 1600, TRUE, FALSE, 'Corner lot with garden space'),
-('987 Cedar Rd', 'Nowhere', 'OR', '45678', 1900.00, 4, 3, 2200, TRUE, TRUE, 'Ranch style home with mountain view'),
-('210 Oakwood Ave', 'Anywhere', 'IL', '56789', 1300.00, 2, 1, 1100, TRUE, FALSE, 'Apartment in a quiet neighborhood'),
-('543 Birch St', 'Everytown', 'MA', '89012', 1600.00, 3, 2, 1700, TRUE, TRUE, 'Duplex with fenced backyard'),
-('876 Spruce Ave', 'Noway', 'PA', '90123', 2000.00, 4, 3, 2000, TRUE, FALSE, 'New construction with modern amenities'),
-('109 Willow Dr', 'Smalltown', 'GA', '34567', 1400.00, 2, 1, 1200, TRUE, FALSE, 'Single family home with front porch');
+INSERT INTO property (address, city, state, zip_code, rent_price, bedrooms, bathrooms, square_feet, available, basement, description, imageUrl) VALUES
+('123 Main St', 'Anytown', 'CA', '12345', 1500.00, 3, 2, 1500, TRUE, FALSE, 'Cozy family home with backyard', '/propertyImages/2.png' ),
+('456 Oak Ave', 'Sometown', 'NY', '67890', 1800.00, 4, 3, 2000, TRUE, TRUE, 'Spacious house with basement', '/propertyImages/1602.png' ),
+('789 Maple Blvd', 'Anothercity', 'TX', '23456', 1200.00, 2, 1, 1000, TRUE, FALSE, 'Modern apartment near downtown', '/propertyImages/3.png'),
+('321 Pine Dr', 'Yourtown', 'FL', '78901', 2200.00, 3, 2, 1800, TRUE, TRUE, 'Renovated townhouse with garage', '/propertyImages/4.png'),
+('654 Elm Ln', 'Somewhere', 'WA', '34567', 1700.00, 3, 2, 1600, TRUE, FALSE, 'Corner lot with garden space', '/propertyImages/5.png'),
+('987 Cedar Rd', 'Nowhere', 'OR', '45678', 1900.00, 4, 3, 2200, TRUE, TRUE, 'Ranch style home with mountain view', '/propertyImages/6.png'),
+('210 Oakwood Ave', 'Anywhere', 'IL', '56789', 1300.00, 2, 1, 1100, TRUE, FALSE, 'Apartment in a quiet neighborhood', '/propertyImages/7.png'),
+('543 Birch St', 'Everytown', 'MA', '89012', 1600.00, 3, 2, 1700, TRUE, TRUE, 'Duplex with fenced backyard', '/propertyImages/8.png'),
+('876 Spruce Ave', 'Noway', 'PA', '90123', 2000.00, 4, 3, 2000, TRUE, FALSE, 'New construction with modern amenities', '/propertyImages/9.png'),
+('109 Willow Dr', 'Smalltown', 'GA', '34567', 1400.00, 2, 1, 1200, TRUE, FALSE, 'Single family home with front porch', '/propertyImages/10.png');
 
 -- rental_agreement
 INSERT INTO rental_agreement (renter_id, property_id, start_date, end_date, monthly_rent, deposit_amount, agreement) VALUES

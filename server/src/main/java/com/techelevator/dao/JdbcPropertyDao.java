@@ -36,7 +36,8 @@ public class JdbcPropertyDao implements PropertyDao{
             boolean isAvailable = rs.getBoolean("available");
             boolean hasBasement = rs.getBoolean("basement");
             String description = rs.getString("description");
-            Property property = new Property(propertyId, address, city, state, zipCode, rentPrice, bedrooms, bathrooms, squareFeet, isAvailable, hasBasement, description);
+            String imageUrl = rs.getString("imageUrl");
+            Property property = new Property(propertyId, address, city, state, zipCode, rentPrice, bedrooms, bathrooms, squareFeet, isAvailable, hasBasement, description, imageUrl);
             return property;
         }
     };
@@ -53,23 +54,23 @@ public class JdbcPropertyDao implements PropertyDao{
 
     @Override
     public Property createProperty(Property newProperty) {
-        String sql = "INSERT INTO property (address, city, state, zip_code, rent_price, bedrooms, bathrooms, square_feet, available, basement, description) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) returning property_id";
+        String sql = "INSERT INTO property (address, city, state, zip_code, rent_price, bedrooms, bathrooms, square_feet, available, basement, description, imageUrl) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) returning property_id";
         int propertyId = template.queryForObject(sql, int.class, newProperty.getAddress(), newProperty.getCity(), newProperty.getState(),
                 newProperty.getZipCode(), newProperty.getRentPrice(), newProperty.getBedrooms(),
                 newProperty.getBathrooms(), newProperty.getSquareFeet(), newProperty.isAvailable(), newProperty.isBasement(),
-                newProperty.getDescription());
+                newProperty.getDescription(), newProperty.getImageUrl());
         return getPropertyById(propertyId);
     }
 
     @Override
     public boolean updateProperty(Property property) {
-        String sql = "UPDATE property SET address = ?, city = ?, state = ?, zip_code = ?, rent_price = ?, bedrooms = ?, bathrooms = ?, square_feet = ?, available = ?, basement = ?, description = ? " +
+        String sql = "UPDATE property SET address = ?, city = ?, state = ?, zip_code = ?, rent_price = ?, bedrooms = ?, bathrooms = ?, square_feet = ?, available = ?, basement = ?, description = ?, imageUrl = ? " +
                 "WHERE property_id = ?";
         int rowsAffected = template.update(sql, property.getAddress(), property.getCity(), property.getState(),
                 property.getZipCode(), property.getRentPrice(), property.getBedrooms(),
                 property.getBathrooms(), property.getSquareFeet(), property.isAvailable(), property.isBasement(),
-                property.getDescription(), property.getPropertyId());
+                property.getDescription(), property.getImageUrl(), property.getPropertyId());
         return rowsAffected > 0;
     }
 

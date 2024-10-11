@@ -17,6 +17,7 @@
   </template> -->
 
   <template>
+
     <div>
       <section class="homepageContent" id="contentWrapper">
           <div class="mainSearch" id="searchWrap">
@@ -30,14 +31,19 @@
           </div>
         </section>
 
+    <div v-if="isLoading">
+      <loading-spinner id="spinner" v-bind:spin="true"/>
+    </div>
+
         
-        <section class="property-featured" id="property-featured">
+        <section class="property-featured" id="property-featured" v-else>
           <h2>Available rentals in Columbus, OH</h2>
 
           <!-- Dynamic data--> <!-- New container for dynamic content -->
           <div id="properties-container">
             <div v-for="property in properties" v-bind:key="property.propertyId" class="property-placard" v-on:mouseover="property.hover = true"
               @mouseleave="property.hover = false">
+              
               <img v-bind:src="property.imageUrl" alt="Property Image" class="property-placard-image">
               <h3>{{ property.address }}</h3>
               <p>{{ property.description }}</p>
@@ -49,21 +55,6 @@
               <p v-if="property.hover">Rent: ${{ property.rentPrice }}</p>
             </div>
           </div>
-          
-                    <!-- Selected property details (only displayed if a property is selected) -->
-          <div v-if="selectedProperty" class="selected-property-details">
-            <h2>Property Details for {{ selectedProperty.address }}</h2>
-            <img v-bind:src="selectedProperty.imageUrl" alt="Selected Property Image" />
-            <p><strong>City:</strong> {{ property.city }}</p>
-            <p><strong>State:</strong> {{ property.state }}</p>
-            <p><strong>Zip Code:</strong> {{ property.zip_code }}</p>
-            <p><strong>Rent Price:</strong> ${{ property.rent_price }}</p>
-            <p><strong>Bedrooms:</strong> {{ property.bedrooms }}</p>
-            <p><strong>Bathrooms:</strong> {{ property.bathrooms }}</p>
-            <p><strong>Square Feet:</strong> {{ property.square_feet }}</p>
-            <p><strong>Available:</strong> {{ property.available ? 'Yes' : 'No' }}</p>
-            <p><strong>Description:</strong> {{ property.description }}</p>
-          </div>
         </section>
     </div>
   </template>
@@ -71,7 +62,7 @@
   <script>
   //import RentalAgreementComponent from '../components/RentalAgreementComponent.vue';
   import PropertyService from '../services/PropertyService.js';
-  import ResourceService from '../services/ResourceService.js';
+  import LoadingSpinner from './LoadingSpinner.vue';
 
  
   
@@ -80,18 +71,21 @@
     data() {
     return {
       properties: [],  // Holds all property data
-      selectedProperty: null, 
+      selectedProperty: null,
+      isLoading: true 
     };
   },
-    props: {
-      property: {
-        type: Object,
-        required: true,
-      },
-    },
+
+  components: {
+    LoadingSpinner
+  },
+
       created() {
-    // Fetch properties using ResourceService when the component is created
-    this.properties = ResourceService.getAllProperties();
+    // Fetch properties using PropertyService when the component is created
+    PropertyService.getAllProperties().then((response) => {
+      this.properties = response.data;
+      this.isLoading = false;
+    })
   },
     computed: {
       createdDate() {

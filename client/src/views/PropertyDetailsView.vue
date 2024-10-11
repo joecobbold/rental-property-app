@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="loading" v-if="isLoading">
-      <p>Loading...</p>
-    </div>
+    <div v-if="isLoading">
+    <loading-spinner id="spinner" v-bind:spin="true"/>
+  </div>
     <div v-else>
       <nav>
         <router-link v-bind:to="{ name: 'home' }">Go Back to Home</router-link>
@@ -12,22 +12,23 @@
       <property-details-component v-bind:property="property" />
 
       <!-- Admin controls for editing/deleting property -->
-      <!--{{ $store.state.user.role }}-->
-      <div>
+      <div v-if="isAdmin">
         <button @click="editProperty(property.propertyId)">Edit Property</button>
         <button @click="deleteProperty(property.propertyId)">Delete Property</button>
       </div>
 
 
+      <!--This call isnt working-->
       <div class="rental-agreements">
-        <h2>Your Rental Agreements</h2>
+        <h2>Your Rental Agreement(s)</h2>
         <ul>
           <li v-for="agreement in rentalAgreements" :key="agreement.id">
-            <p><strong>Agreement ID:</strong> {{ agreement.id }}</p>
-            <p><strong>Renter ID:</strong> {{ agreement.renterId }}</p>
-            <p><strong>Status:</strong> {{ agreement.status }}</p>
-            <p><strong>Start Date:</strong> {{ agreement.startDate }}</p>
-            <p><strong>End Date:</strong> {{ agreement.endDate }}</p>
+            <p><strong>Agreement ID:</strong> {{ agreement.rental_agreement_id }}</p>
+            <p><strong>Renter ID:</strong> {{ agreement.renter_id }}</p>
+            <p><strong>Start Date:</strong> {{ agreement.start_date }}</p>
+            <p><strong>End Date:</strong> {{ agreement.end_date }}</p>
+            <p><strong>Deposit amount:</strong> {{ agreement.deposit_amount }}</p>
+            <p><strong>Agreement:</strong> {{ agreement.agreement }}</p>
           </li>
         </ul>
       </div>
@@ -38,10 +39,13 @@
 <script>
 import PropertyDetailsComponent from '../components/PropertyDetailsComponent.vue';
 import PropertyService from '../services/PropertyService.js';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
+import RentalAgreementService from '../services/RentalAgreementService';
 
 export default {
   components: {
     PropertyDetailsComponent,
+    LoadingSpinner
   },
   data() {
     return {
@@ -52,22 +56,27 @@ export default {
       showEditModal: false,
     };
   },
+  computed: {
+    isAdmin() {
+      
+      return this.$store.state.user.role && this.$store.state.user.role.includes("ROLE_ADMIN");
+    },
+  },
+
   methods: {
     getProperty(id) {
       PropertyService.getPropertyById(id)
         .then((response) => {
           this.isLoading = false;
           this.property = response.data;
-          if (this.requiresAuth) {
-            this.getRentalAgreements(id);
-          }
         });
     },
 
     getRentalAgreements(propertyId) {
-      PropertyService.getRentalAgreementsByPropertyId(propertyId)
+      RentalAgreementService.getRentalAgreementsByPropertyId(propertyId)
         .then((response) => {
           this.rentalAgreements = response.data;
+          this.isLoading = false; // Set isLoading to false after fetching rental agreements
         });
     },
 
@@ -106,15 +115,25 @@ export default {
   },
   created() {
     this.getProperty(this.$route.params.propertyId);
-  },
-};
+    this.getRentalAgreements(this.$route.params.propertyId);
+  }
+}
+
 </script>
   
 <style scoped>
-.loading {
-  text-align: center;
-  font-size: 20px;
-  margin-top: 20px;
+#spinner {
+  display: flex;              
+  justify-content: center;    
+  align-items: center;         
+  margin: 0 auto;             
+  width: 50px;                 
+  height: 50px;                
+  font-size: 24px;             
+  margin-top: 20vh;
+  color: #414e58;            
 }
 </style>
+
+
   

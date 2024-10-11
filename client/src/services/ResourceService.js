@@ -1,3 +1,9 @@
+
+
+//<!--DELETE LATER: NOT USING AT THE MOMENT-->
+
+
+
 const allProperties = [
   {
       propertyId: 2,

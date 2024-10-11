@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const PropertyService = {
   getAllProperties() {
     return axios.get('/property');
