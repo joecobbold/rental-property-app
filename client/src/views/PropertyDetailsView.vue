@@ -18,7 +18,6 @@
       </div>
 
 
-      <!--This call isnt working-->
       <div class="rental-agreements">
         <h2>Your Rental Agreement(s)</h2>
         <ul>

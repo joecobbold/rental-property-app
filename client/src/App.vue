@@ -9,7 +9,7 @@
               <!-- Dropdown content (the links previously under li elements) -->
               <ul class="menu-items">
                   <li><a href="#home">Home</a></li>
-                  <li><a href="#addProperty">Add a Property</a></li>
+                  <li><router-link v-bind:to="{ name: 'addProperty'}">Add a Property</router-link></li>
                   <li><a href="#manageRentals">Manage Rentals</a></li>
               </ul>
               <!-- <ul class="menu-items">
