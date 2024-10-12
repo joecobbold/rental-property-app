@@ -82,7 +82,8 @@
 
       created() {
     // Fetch properties using PropertyService when the component is created
-    PropertyService.getAllProperties().then((response) => {
+    PropertyService.getAllProperties()
+    .then((response) => {
       this.properties = response.data;
       this.isLoading = false;
     })

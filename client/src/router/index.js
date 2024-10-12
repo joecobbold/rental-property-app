@@ -8,6 +8,7 @@ import LogoutView from '../views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import PropertyDetailsView from '../views/PropertyDetailsView.vue'
 import AddProperty from '../views/AddPropertyView.vue'
+import ManageRenterView from '../views/ManageRenterView.vue'
 
 
 /**
@@ -66,6 +67,14 @@ const routes = [
       meta: {
         requiresAuth: false
       },
+    },
+    {
+      path: '/renter',
+      name: 'renter',
+      component: ManageRenterView,
+      meta: {
+        requiresAuth: false
+      }
     }
     // {
     //   path: '/edit-property/:id',

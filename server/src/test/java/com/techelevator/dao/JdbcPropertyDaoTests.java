@@ -13,10 +13,10 @@ import static org.junit.Assert.assertNotNull;
 
 public class JdbcPropertyDaoTests extends BaseDaoTests{
 
-    private static final Property PROPERTY_1 = new Property(1, "123 Main St", "Anytown", "CA", "12345", 1500.00, 3, 2, 1500, true, false, "Cozy family home with backyard");
+    private static final Property PROPERTY_1 = new Property(1, "123 Main St", "Anytown", "CA", "12345", 1500.00, 3, 2, 1500, true, false, "Cozy family home with backyard", "/propertyImages/1602.png");
 
 
-    private static final Property PROPERTY_2 = new Property(2,  "456 Oak Ave", "Sometown", "NY", "67890", 1800.00, 4, 3, 2000, true, true, "Spacious house with basement");
+    private static final Property PROPERTY_2 = new Property(2,  "456 Oak Ave", "Sometown", "NY", "67890", 1800.00, 4, 3, 2000, true, true, "Spacious house with basement", "/propertyImages/2.png");
 
 
 
@@ -46,7 +46,7 @@ public class JdbcPropertyDaoTests extends BaseDaoTests{
 
     @Test
     public void createProperty() {
-        Property newProperty = new Property(11,"123 Main St", "Anytown", "CA", "12345", 1500.00, 3, 2, 1500, true, false, "Cozy family home with backyard");
+        Property newProperty = new Property(11,"123 Main St", "Anytown", "CA", "12345", 1500.00, 3, 2, 1500, true, false, "Cozy family home with backyard", "/propertyImages/11.jpg");
 
         Property createdAgreement = propertyDao.createProperty(newProperty);
         if(createdAgreement != null){

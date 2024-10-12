@@ -1,32 +1,34 @@
 <template>
   <div>
     <div v-if="isLoading">
-    <loading-spinner id="spinner" v-bind:spin="true"/>
-  </div>
+      <loading-spinner id="spinner" v-bind:spin="true" />
+    </div>
     <div v-else>
       <nav>
         <router-link v-bind:to="{ name: 'home' }">Go Back to Home</router-link>
       </nav>
 
-
-      <property-details-component v-bind:property="property" />
-
-      <!-- Admin controls for editing/deleting property -->
-      <div v-if="isAdmin">
-        <button @click="editProperty(property.propertyId)">Edit Property</button>
-        <button @click="deleteProperty(property.propertyId)">Delete Property</button>
+      <!-- Property Details Card -->
+      <div class="card">
+        <property-details-component v-bind:property="property" />
+        
+        <!-- Admin controls for editing/deleting property -->
+        <div v-if="isAdmin" class="admin-controls">
+          <button @click="updateProperty(property.propertyId)">Update Property</button>
+          <button @click="deleteProperty(property.propertyId)">Delete Property</button>
+        </div>
       </div>
 
-
-      <div class="rental-agreements">
+      <!-- Rental Agreement Details Card -->
+      <div class="card rental-agreements">
         <h2>Your Rental Agreement(s)</h2>
         <ul>
-          <li v-for="agreement in rentalAgreements" :key="agreement.id">
+          <li v-for="agreement in rentalAgreements" :key="agreement.id" class="agreement-details">
             <p><strong>Agreement ID:</strong> {{ agreement.rental_agreement_id }}</p>
             <p><strong>Renter ID:</strong> {{ agreement.renter_id }}</p>
             <p><strong>Start Date:</strong> {{ agreement.start_date }}</p>
             <p><strong>End Date:</strong> {{ agreement.end_date }}</p>
-            <p><strong>Deposit amount:</strong> {{ agreement.deposit_amount }}</p>
+            <p><strong>Deposit Amount:</strong> {{ agreement.deposit_amount }}</p>
             <p><strong>Agreement:</strong> {{ agreement.agreement }}</p>
           </li>
         </ul>
@@ -34,6 +36,7 @@
     </div>
   </div>
 </template>
+
   
 <script>
 import PropertyDetailsComponent from '../components/PropertyDetailsComponent.vue';
@@ -122,17 +125,65 @@ export default {
   
 <style scoped>
 #spinner {
-  display: flex;              
-  justify-content: center;    
+  display: flex;               
+  justify-content: center;     
   align-items: center;         
   margin: 0 auto;             
-  width: 50px;                 
-  height: 50px;                
+  width: 50px;                
+  height: 50px;               
   font-size: 24px;             
   margin-top: 20vh;
-  color: #414e58;            
+  color: #414e58;             
+}
+
+.card {
+  background-color: #f9f9f9; /* Light background color */
+  border-radius: 15px; /* Curved corners */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 20px; /* Space inside the card */
+  margin: 20px auto; /* Center the card and space between cards */
+  max-width: 600px; /* Set a maximum width for the card */
+  text-align: left; /* Align text inside the card */
+}
+
+.card h2, .card p {
+  margin: 10px 0; /* Space between content */
+}
+
+.rental-agreements ul {
+  list-style: none; /* Remove bullet points */
+  padding-left: 0; /* Remove padding from ul */
+}
+
+.agreement-details {
+  padding: 10px 0; /* Space between rental agreements */
+  border-bottom: 1px solid #ddd; /* Separator between each agreement */
+}
+
+.agreement-details:last-child {
+  border-bottom: none; /* Remove last border */
+}
+
+.admin-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+button {
+  background-color: #306ba8; /* Button background */
+  color: white; /* Button text color */
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px; /* Curved corners for the button */
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #4a86c2; /* Lighter shade on hover */
 }
 </style>
+
 
 
   

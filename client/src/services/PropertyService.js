@@ -10,12 +10,12 @@ const PropertyService = {
     return axios.get(`/property/${propertyId}`);
   },
 
-  createProperty(propertyData) {
-    return axios.post('/property', propertyData);
+  createProperty(newPropertyData) {
+    return axios.post('/property', newPropertyData);
   },
 
-  updateProperty(propertyId, propertyData) {
-    return axios.put(`/property/${propertyId}`, propertyData);
+  updateProperty(propertyId, updatePropertyData) {
+    return axios.put(`/property/${propertyId}`, updatePropertyData);
   },
 
   deleteProperty(propertyId) {
