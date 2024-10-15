@@ -26,8 +26,8 @@
           </div>
 
           <div class = "quickSearch" id = "quickSearch">
-            <input type="text" id="searchBar" placeholder="Enter a city, neighborhood, or address" />
-            <button id="searchButton">Search</button>
+            <input type="text" id="searchBar" v-model="searchQuery" placeholder="Enter a city, neighborhood, or address" />
+            <button id="searchButton" @click="propertyFilter">Search</button>
           </div>
         </section>
 
@@ -41,7 +41,7 @@
 
           <!-- Dynamic data--> <!-- New container for dynamic content -->
           <div id="properties-container">
-            <div v-for="property in properties" v-bind:key="property.propertyId" class="property-placard" v-on:mouseover="property.hover = true"
+            <div v-for="property in filteredProperties" v-bind:key="property.propertyId" class="property-placard" v-on:mouseover="property.hover = true"
               @mouseleave="property.hover = false">
               
               <img v-bind:src="property.imageUrl" alt="Property Image" class="property-placard-image">
@@ -72,6 +72,7 @@
     return {
       properties: [],  // Holds all property data
       selectedProperty: null,
+      searchQuery: "",
       isLoading: true 
     };
   },
@@ -89,6 +90,17 @@
     })
   },
     computed: {
+      filteredProperties() {
+      return this.properties.filter((property) => {
+        const query = this.searchQuery.toLowerCase();
+        const matchesCity = property.city.toLowerCase().includes(query);
+        const matchesState = property.state.toLowerCase().includes(query);
+        const matchesAddress = property.address.toLowerCase().includes(query);
+        
+        
+        return matchesCity || matchesState || matchesAddress;
+      });
+    },
       createdDate() {
         let created = new Date(this.property.dateAdded);
         return created.toLocaleDateString();
@@ -96,7 +108,13 @@
       createdTime() {
         let created = new Date(this.property.dateAdded);
         return created.toLocaleTimeString();
-      }
+      },
+      methods: {
+    // This method can be expanded later for custom actions
+    propertyFilter() {
+      console.log(`Filtering by: ${this.searchQuery}`);
+    },
+  },
     }
 
   
