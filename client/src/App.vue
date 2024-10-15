@@ -10,7 +10,7 @@
               <ul class="menu-items">
                   <li><router-link v-bind:to="{ name: 'home'}">Home</router-link></li>
                   <li><router-link v-bind:to="{ name: 'addProperty'}">Add a Property</router-link></li>
-                  <li><router-link v-bind:to="{ name: 'renter'}">Manage Rentals</router-link></li>
+                  <li><router-link v-bind:to="{ name: 'renter'}">Manage Renters</router-link></li>
               </ul>
               <!-- <ul class="menu-items">
                   <li><a href="#home">Home</a></li>
@@ -73,6 +73,18 @@
 
 body {
   background-color: #ffffff;
+}
+
+#spinner {
+  display: flex;               
+  justify-content: center;     
+  align-items: center;         
+  margin: 0 auto;             
+  width: 50px;                
+  height: 50px;               
+  font-size: 24px;             
+  margin-top: 20vh;
+  color: #414e58;             
 }
 
 

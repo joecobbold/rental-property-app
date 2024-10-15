@@ -124,17 +124,7 @@ export default {
 </script>
   
 <style scoped>
-#spinner {
-  display: flex;               
-  justify-content: center;     
-  align-items: center;         
-  margin: 0 auto;             
-  width: 50px;                
-  height: 50px;               
-  font-size: 24px;             
-  margin-top: 20vh;
-  color: #414e58;             
-}
+
 
 .card {
   background-color: #f9f9f9; /* Light background color */

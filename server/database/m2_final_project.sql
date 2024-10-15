@@ -88,8 +88,8 @@ INSERT INTO renter (first_name, last_name, email, phone, profile_details) VALUES
 
 -- property
 INSERT INTO property (address, city, state, zip_code, rent_price, bedrooms, bathrooms, square_feet, available, basement, description, imageUrl) VALUES
-('123 Main St', 'Anytown', 'CA', '12345', 1500.00, 3, 2, 1500, TRUE, FALSE, 'Cozy family home with backyard', '/propertyImages/2.png' ),
-('456 Oak Ave', 'Sometown', 'NY', '67890', 1800.00, 4, 3, 2000, TRUE, TRUE, 'Spacious house with basement', '/propertyImages/1602.png' ),
+('123 Main St', 'Anytown', 'CA', '12345', 1500.00, 3, 2, 1500, TRUE, FALSE, 'Cozy family home with backyard', '/propertyImages/1602.png' ),
+('456 Oak Ave', 'Sometown', 'NY', '67890', 1800.00, 4, 3, 2000, TRUE, TRUE, 'Spacious house with basement', '/propertyImages/2.png' ),
 ('789 Maple Blvd', 'Anothercity', 'TX', '23456', 1200.00, 2, 1, 1000, TRUE, FALSE, 'Modern apartment near downtown', '/propertyImages/3.png'),
 ('321 Pine Dr', 'Yourtown', 'FL', '78901', 2200.00, 3, 2, 1800, TRUE, TRUE, 'Renovated townhouse with garage', '/propertyImages/4.png'),
 ('654 Elm Ln', 'Somewhere', 'WA', '34567', 1700.00, 3, 2, 1600, TRUE, FALSE, 'Corner lot with garden space', '/propertyImages/5.png'),
