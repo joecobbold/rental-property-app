@@ -58,15 +58,67 @@
           <a href="https://www.linkedin.com">LinkedIn</a>
         </p> -->
         <p>
-          <a href="https://www.facebook.com">About</a> | 
-          <a href="https://www.twitter.com">Services</a> | 
-          <a href="https://www.linkedin.com">Contact Us</a>    <!-- eventually turn these into modals or send to a different page if there's time-->
+          <a href="#" @click.prevent="openModal('about')">About</a> | 
+          <a href="#" @click.prevent="openModal('services')">Services</a> | 
+          <a href="#" @click.prevent="openModal('contact')">Contact Us</a>    
         </p>
         <p> Copyright ©2024 Bbold Enterprises - Excellence Through Simplicity. All rights reserved!</p>
 
     </footer>
+
+   
+    <div>
+    <!-- Modal Component -->
+    <modal-component
+      :isVisible="isModalVisible"
+      title="Bbold Enterprises Ltd."
+      :content="modalContent"
+      @close="isModalVisible = false"
+    />
+  </div>
   </div>
 </template>
+<script>
+import ModalComponent from './components/ModalComponent.vue';
+
+export default {
+  components: {
+    ModalComponent
+  },
+  data() {
+    return {
+      isModalVisible: false,
+      modalContent: '',
+      modalContentMap: {
+  about: `
+    This application is dedicated to my beloved mom, who taught me the importance of resilience and perseverance in the face of life's challenges. Your strength continues to inspire me every day, and I am forever grateful for the love and lessons you shared.
+
+    To my wonderful wife, who has held the Cobbold fort during my long days and nights of study, your unwavering support and understanding have been my anchor. Thank you for your patience and encouragement; I could not have done this without you.
+
+    And to my precious son, who has had to miss countless play nights and trail rides, I hope the time I've spent away will lead to a brighter future for us all. Your joy is my motivation, and I promise to make it all worth it.
+
+    This journey is a tribute to each of you—my guiding lights. Thank you for your love and sacrifices.
+  `,
+  services: `
+    The Property Rental Listing Application is a comprehensive platform designed to manage and streamline the rental property process. It serves as a central hub for property managers, renters, and administrators, offering a wide range of features to facilitate property listings, renter management, and rental agreement handling.
+  `,
+  contact: `
+    Owner: Josalynn Cobbold
+    Operations Manager: Joe Cobbold
+    Property Manager: Joshua Cobbold
+  `
+}
+
+    };
+  },
+  methods: {
+    openModal(type) {
+      this.isModalVisible = true;
+      this.modalContent = this.modalContentMap[type]; // Set modal content based on type
+    },
+  },
+};
+</script>
 
 <style>
 /* Global settings */
