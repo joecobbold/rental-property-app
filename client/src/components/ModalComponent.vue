@@ -18,25 +18,24 @@ export default {
     },
     title: {
       type: String,
-      default: 'Modal Title',
+      default: "Modal Title",
     },
     content: {
       type: String,
-      default: 'Modal Content',
+      default: "Modal Content",
     },
   },
   computed: {
     formattedContent() {
-      return this.content.replace(/\n/g, '<br />'); // Replace newlines with <br />
+      return this.content.replace(/\n/g, "<br />"); // Replace newlines with <br />
     },
   },
   methods: {
-  closeModal() {
-    this.$emit('close');
-    this.isModalVisible = false;
+    closeModal() {
+      this.$emit("close");
+      this.isModalVisible = false;
+    },
   },
-},
-
 };
 </script>
 

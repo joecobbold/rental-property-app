@@ -9,6 +9,8 @@ import RegisterView from '../views/RegisterView.vue'
 import PropertyDetailsView from '../views/PropertyDetailsView.vue'
 import AddProperty from '../views/AddPropertyView.vue'
 import ManageRenterView from '../views/ManageRenterView.vue'
+import UpdateView from '../views/UpdateView.vue'
+import ManageAgreementView from '../views/ManageAgreementView.vue'
 
 
 /**
@@ -75,16 +77,23 @@ const routes = [
       meta: {
         requiresAuth: false
       }
+    },
+    {
+      path: '/rental_agreement',
+      name: 'rental_agreement',
+      component: ManageAgreementView,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: '/property/:propertyId/update',
+      name: 'updateProperty',
+      component: UpdateView,
+      meta: {
+        requiresAuth: true, 
+      },
     }
-    // {
-    //   path: '/edit-property/:id',
-    //   name: 'editPropertyView',
-    //   component: EditPropertyView,
-    //   meta: {
-    //     requiresAuth: true, 
-    //     //isAdmin: true,      // need to look into this
-    //   },
-    // }
     
   ];
 

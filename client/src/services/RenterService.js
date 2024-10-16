@@ -19,9 +19,8 @@ const RenterService = {
 
     deleteRenter(renterId) {
         return axios.delete(`/renter/${renterId}`)
-
     }
-
+    
 }
 
 export default RenterService;

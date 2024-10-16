@@ -153,7 +153,7 @@ input {
 }
 
 button {
-  background-color: #e4853c;
+  background-color: #28a745;
   color: white;
   border: none;
   padding: 10px;

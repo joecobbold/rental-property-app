@@ -11,6 +11,7 @@
                   <li><router-link v-bind:to="{ name: 'home'}">Home</router-link></li>
                   <li><router-link v-bind:to="{ name: 'addProperty'}">Add a Property</router-link></li>
                   <li><router-link v-bind:to="{ name: 'renter'}">Manage Renters</router-link></li>
+                  <li><router-link v-bind:to="{ name: 'rental_agreement'}">Manage Agreements</router-link></li>
               </ul>
               <!-- <ul class="menu-items">
                   <li><a href="#home">Home</a></li>
@@ -42,11 +43,9 @@
 
 
 
-
     <main>
       <router-view />
     </main>
-
 
 
 
@@ -79,7 +78,7 @@
   </div>
 </template>
 <script>
-import ModalComponent from './components/ModalComponent.vue';
+import ModalComponent from './components/ModalComponent.vue'
 
 export default {
   components: {
@@ -125,6 +124,10 @@ export default {
 
 body {
   background-color: #ffffff;
+}
+
+.menu-items {
+  margin-top: 30px;
 }
 
 #spinner {

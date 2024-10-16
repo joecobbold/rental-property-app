@@ -36,6 +36,7 @@ public class RentersController {
     }
 
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(path="/{id}")
     public Renter getRenterById(@PathVariable int id){
         try {
