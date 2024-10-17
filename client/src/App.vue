@@ -9,9 +9,9 @@
               <!-- Dropdown content (the links previously under li elements) -->
               <ul class="menu-items">
                   <li><router-link v-bind:to="{ name: 'home'}">Home</router-link></li>
-                  <li><router-link v-bind:to="{ name: 'addProperty'}">Add a Property</router-link></li>
-                  <li><router-link v-bind:to="{ name: 'renter'}">Manage Renters</router-link></li>
-                  <li><router-link v-bind:to="{ name: 'rental_agreement'}">Manage Agreements</router-link></li>
+                  <li  v-if="isAdmin"><router-link   v-bind:to="{ name: 'addProperty'}">Add a Property</router-link></li>
+                  <li v-if="isAdmin || isUser"><router-link  v-bind:to="{ name: 'renter'}">Manage Renters</router-link></li>
+                  <li  v-if="isAdmin"><router-link   v-bind:to="{ name: 'rental_agreement'}">Manage Agreements</router-link></li>
               </ul>
               <!-- <ul class="menu-items">
                   <li><a href="#home">Home</a></li>
@@ -116,6 +116,21 @@ export default {
       this.modalContent = this.modalContentMap[type]; // Set modal content based on type
     },
   },
+  computed: {
+    isAdmin() {
+      return (
+        this.$store.state.user.role &&
+        this.$store.state.user.role.includes("ROLE_ADMIN")
+      );
+    },
+    isUser() {
+      return (
+        this.$store.state.user.role &&
+        this.$store.state.user.role.includes("ROLE_USER")
+      );
+    }
+  }
+
 };
 </script>
 

@@ -4,7 +4,7 @@
   </div>
 
   <!-- Create Renter Form -->
-  <div class="create-renter" v-if="!isUpdating">
+  <div class="create-renter" v-if=" isAdmin && !isUpdating">
     <h2>Create Renter</h2>
     <form @submit.prevent="createRenter">
       <input
@@ -91,6 +91,26 @@
     <button id="searchRenterButton" @click="searchRenter">Search</button>
   </div>
 
+
+   <!-- Loading Spinner -->
+   <div v-if="isLoading">Loading...</div>
+
+    <!-- Search Results For Renter -->
+    <div v-if="isSearched && renters.length > 0" class="search-results">
+    <h2>Search Results:</h2>
+    <div v-for="renter in renters" :key="renter.renter_id" class="renter-card">
+      <h3>{{ renter.first_name + " " + renter.last_name }}</h3>
+      <p><strong>Renter Id: </strong>{{ renter.renter_id }}</p>
+      <p><strong>Email: </strong>{{ renter.email }}</p>
+      <p><strong>Profile Details: </strong>{{ renter.profile_details }}</p>
+    </div>
+  </div>
+
+  <!-- No Results Found For Renter-->
+  <div v-else-if="isSearched && searchId && renters.length === 0">
+    <p>No renter found with ID {{ searchId }}.</p>
+  </div>
+
   <div v-if="isAdmin" class="renters-container">
     <div v-for="renter in renters" :key="renter.renter_id" class="renter-card">
       <h3>{{ renter.first_name + " " + renter.last_name }}</h3>
@@ -129,6 +149,7 @@ export default {
         profile_details: "",
       },
       searchId: "",
+      isSearched: false,
     };
   },
   created() {
@@ -213,15 +234,44 @@ export default {
       }
     },
 
+    // searchRenter() { //this searches based on local data
+    //   const searchLower = this.searchId.toLowerCase();
+    //   this.renters = this.renters.filter(
+    //     (renter) =>
+    //       renter.renter_id.toString().includes(this.searchId) ||
+    //       renter.first_name.toLowerCase().includes(searchLower) ||
+    //       renter.last_name.toLowerCase().includes(searchLower)
+    //   );
+    // },
+
     searchRenter() {
-      const searchLower = this.searchId.toLowerCase();
-      this.renters = this.renters.filter(
-        (renter) =>
-          renter.renter_id.toString().includes(this.searchId) ||
-          renter.first_name.toLowerCase().includes(searchLower) ||
-          renter.last_name.toLowerCase().includes(searchLower)
-      );
-    },
+
+      //for debugging
+      console.log("Search function triggered");
+      console.log("Search input:", this.searchId);
+  if (!this.searchId) {
+    alert("Please enter a renter ID");
+    return;
+  }
+  this.isLoading = true;
+ //this.isSearched = true;
+  this.renters = []; //clear local data
+ 
+  RenterService.getRenterById(this.searchId)
+    .then((response) => {
+      this.renters = [response.data]; // Display the found renter
+      
+    })
+    .catch((error) => {
+      console.error("Error searching renter:", error);
+      alert("Renter not found or error occurred.");
+    })
+    .finally(() => {
+      this.isLoading = false;
+      this.isSearched = true;
+    });
+},
+
 
     resetNewRenter() {
       this.newRenter = {
@@ -314,6 +364,7 @@ button {
 
 /* Search bar styles */
 .renterSearch {
+  margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
@@ -412,6 +463,16 @@ button {
 
 #cancel-form-button:hover {
   background-color: black;
+}
+
+.search-results {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center; 
+  margin: 20px auto; 
+  max-width: 800px;
+  text-align: center;
 }
 
 

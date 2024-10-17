@@ -67,7 +67,7 @@ const routes = [
       name: 'addProperty',
       component: AddProperty,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       },
     },
     {
@@ -75,7 +75,8 @@ const routes = [
       name: 'renter',
       component: ManageRenterView,
       meta: {
-        requiresAuth: false
+        requiresAuth: true,
+        //isAdminFlag: true
       }
     },
     {
@@ -83,7 +84,7 @@ const routes = [
       name: 'rental_agreement',
       component: ManageAgreementView,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -110,11 +111,17 @@ router.beforeEach((to) => {
 
   // Determine if the route requires Authentication
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
+  //const isAdminFlag = to.matched.some(x => x.meta.isAdminFlag);
 
   // If it does and they are not logged in, send the user to "/login"
   if (requiresAuth && store.state.token === '') {
     return {name: "login"};
   }
+  // if (isAdminFlag &&  (!this.$store.state.user.role || !this.$store.state.user.role.includes("ROLE_ADMIN"))) {
+  //   alert("You do not have permission to access this page.");
+  //   return {name: "login"};
+    
+  // }
   // Otherwise, do nothing and they'll go to their next destination
 });
 

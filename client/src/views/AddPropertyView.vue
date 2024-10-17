@@ -36,7 +36,7 @@
       <div>
         <label for="propertyName">Rent price: </label>
         <input
-          type="text"
+          type="number"
           v-model="property.rentPrice"
           id="propertyPrice"
           required
@@ -45,7 +45,7 @@
       <div>
         <label for="propertyName">No. of Bedroom(s): </label>
         <input
-          type="text"
+          type="number"
           v-model="property.bedrooms"
           id="propertyBedroom"
           required
@@ -54,7 +54,7 @@
       <div>
         <label for="propertyName">No. of Bathroom(s): </label>
         <input
-          type="text"
+          type="number"
           v-model="property.bathrooms"
           id="propertyBathroom"
           required
@@ -63,7 +63,7 @@
       <div>
         <label for="propertyName">Square Feet: </label>
         <input
-          type="text"
+          type="number"
           v-model="property.squareFeet"
           id="propertySqFt"
           required

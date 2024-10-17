@@ -75,7 +75,7 @@ INSERT INTO
 VALUES
     ('user', '$2a$10$tmxuYYg1f5T0eXsTPlq/V.DJUKmRHyFbJ.o.liI1T35TFbjs2xiem','ROLE_USER'),
     ('admin','$2a$10$tmxuYYg1f5T0eXsTPlq/V.DJUKmRHyFbJ.o.liI1T35TFbjs2xiem','ROLE_ADMIN');
-	
+
 INSERT INTO renter (first_name, last_name, email, phone, profile_details) VALUES
 ('John', 'Doe', 'john.doe@example.com', '123-456-7890', 'Likes to keep the house clean'),
 ('Jane', 'Smith', 'jane.smith@example.com', '234-567-8901', 'Has a small dog'),
