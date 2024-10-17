@@ -287,17 +287,17 @@ header .logo img {
     justify-content: center;
     align-items: center;
     padding: 20px;
-    margin: 0 auto; /* Center the container itself if needed */
+    margin: 0 auto; 
   }
   
   #searchBar {
     width: 100%; 
-    max-width: 500px; /* Set a max-width to ensure it doesn't grow too large */
+    max-width: 500px; 
     padding: 10px;
     border: 1px solid #ffffff;
     border-radius: 5px;
     margin-right: 10px;
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    box-sizing: border-box; 
   }
   
   #searchButton {
@@ -348,12 +348,12 @@ footer {
     font-size: 14px;
     text-align: center;
     height: 76px;
-    display: flex; /* Use Flexbox */
-    flex-direction: column; /* Stack content vertically */
-    justify-content: center; /* Center content vertically */
-    align-items: center; /* Center content horizontally */
-    padding: 5px 10px; /* Adjust padding to give more room for content */
-    box-sizing: border-box; /* Ensure padding is included in height */
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center; 
+    padding: 5px 10px; 
+    box-sizing: border-box; 
 
 }
 
@@ -366,7 +366,7 @@ footer p {
   }
 
   footer p:last-of-type {
-    margin-bottom: 20px; /* Add desired bottom margin */
+    margin-bottom: 20px; /* Add bottom margin */
 }
 
 
@@ -442,8 +442,8 @@ footer a:hover {
     }
   
     
-    .auth-links {   /* Auth links */
-      display: none; /* Hide auth-links on mobile */
+    .auth-links {   
+      display: none; 
     }
   
    
@@ -453,13 +453,27 @@ footer a:hover {
   
     #searchBar {
       width: 100%;
+      max-width: none;
       margin: 10px 0;
     }
   
     #searchButton {
       width: 100%;
     }
+
+    /*Footer*/
+    footer {
+    font-size: 10px; /* Smaller font for mobile */
+    padding: 10px;
+  }
+
+  footer h3 {
+    margin: 10px 0;
+  }
+
+  footer p {
+    margin: 5px 0;
+  }
+    
 }
-
-
 </style>

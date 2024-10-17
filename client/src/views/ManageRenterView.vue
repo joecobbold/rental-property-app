@@ -7,11 +7,34 @@
   <div class="create-renter" v-if="!isUpdating">
     <h2>Create Renter</h2>
     <form @submit.prevent="createRenter">
-      <input type="text" v-model="newRenter.first_name" placeholder="First Name" required />
-      <input type="text" v-model="newRenter.last_name" placeholder="Last Name" required />
-      <input type="email" v-model="newRenter.email" placeholder="Email" required />
-      <input type="text" v-model="newRenter.phone" placeholder="Phone" required />
-      <textarea v-model="newRenter.profile_details" placeholder="Profile Details"></textarea>
+      <input
+        type="text"
+        v-model="newRenter.first_name"
+        placeholder="First Name"
+        required
+      />
+      <input
+        type="text"
+        v-model="newRenter.last_name"
+        placeholder="Last Name"
+        required
+      />
+      <input
+        type="email"
+        v-model="newRenter.email"
+        placeholder="Email"
+        required
+      />
+      <input
+        type="text"
+        v-model="newRenter.phone"
+        placeholder="Phone"
+        required
+      />
+      <textarea
+        v-model="newRenter.profile_details"
+        placeholder="Profile Details"
+      ></textarea>
       <button id="create-renter-button" type="submit">Create Renter</button>
     </form>
   </div>
@@ -20,13 +43,40 @@
   <div class="update-renter" v-if="editRenterId !== null">
     <h2>Update Renter</h2>
     <form @submit.prevent="updateRenter">
-      <input type="text" v-model="newRenter.first_name" placeholder="First Name" required />
-      <input type="text" v-model="newRenter.last_name" placeholder="Last Name" required />
-      <input type="email" v-model="newRenter.email" placeholder="Email" required />
-      <input type="text" v-model="newRenter.phone" placeholder="Phone" required />
-      <textarea v-model="newRenter.profile_details" placeholder="Profile Details"></textarea>
-      <button id="update-renter-form-button" type="submit">Update Renter</button>
-      <button id="cancel-form-button" type="cancel-form" @click="cancelUpdate">Cancel</button>
+      <input
+        type="text"
+        v-model="newRenter.first_name"
+        placeholder="First Name"
+        required
+      />
+      <input
+        type="text"
+        v-model="newRenter.last_name"
+        placeholder="Last Name"
+        required
+      />
+      <input
+        type="email"
+        v-model="newRenter.email"
+        placeholder="Email"
+        required
+      />
+      <input
+        type="text"
+        v-model="newRenter.phone"
+        placeholder="Phone"
+        required
+      />
+      <textarea
+        v-model="newRenter.profile_details"
+        placeholder="Profile Details"
+      ></textarea>
+      <button id="update-renter-form-button" type="submit">
+        Update Renter
+      </button>
+      <button id="cancel-form-button" type="cancel-form" @click="cancelUpdate">
+        Cancel
+      </button>
     </form>
   </div>
 
@@ -47,8 +97,15 @@
       <p><strong>Renter Id: </strong>{{ renter.renter_id }}</p>
       <p><strong>Email: </strong>{{ renter.email }}</p>
       <p><strong>Profile Details: </strong>{{ renter.profile_details }}</p>
-      <button id="update-renter-button" @click="openUpdateModal(renter.renter_id)">Update Renter</button>
-      <button id="delete-renter-button" @click="deleteRenter(renter.renter_id)">Delete Renter</button>
+      <button
+        id="update-renter-button"
+        @click="openUpdateModal(renter.renter_id)"
+      >
+        Update Renter
+      </button>
+      <button id="delete-renter-button" @click="deleteRenter(renter.renter_id)">
+        Delete Renter
+      </button>
     </div>
   </div>
 </template>
@@ -113,37 +170,41 @@ export default {
     },
 
     openUpdateModal(renterId) {
-      const renterToUpdate = this.renters.find(renter => renter.renter_id === renterId);
+      const renterToUpdate = this.renters.find(
+        (renter) => renter.renter_id === renterId
+      );
       this.newRenter = { ...renterToUpdate }; // Pre-fill with existing data
       this.editRenterId = renterId; // Store the ID of the renter to update
       this.isUpdating = true; // Set update mode
     },
 
     updateRenter() {
-  RenterService.updateRenter(this.editRenterId, this.newRenter)
-    .then((response) => {
-      alert("Renter updated successfully.");
-      const index = this.renters.findIndex(renter => renter.renter_id === this.editRenterId);
-      // Directly update the renter in the list
-      if (index !== -1) {
-        this.renters[index] = response.data;
-      }
-      this.resetNewRenter(); // Reset form fields
-      this.editRenterId = null; // Clear the edit renter ID
-      this.isUpdating = false; // Reset update mode
-    })
-    .catch((error) => {
-      console.error("Error updating renter:", error);
-      alert("Failed to update renter.");
-    });
-},
+      RenterService.updateRenter(this.editRenterId, this.newRenter)
+        .then((response) => {
+          alert("Renter updated successfully.");
+          const index = this.renters.findIndex(
+            (renter) => renter.renter_id === this.editRenterId
+          );
+          // Directly update the renter in the list
+          if (index !== -1) {
+            this.renters[index] = response.data;
+          }
+          this.resetNewRenter(); // Reset form fields
+          this.editRenterId = null; // Clear the edit renter ID
+          this.isUpdating = false; // Reset update mode
+        })
+        .catch((error) => {
+          console.error("Error updating renter:", error);
+          alert("Failed to update renter.");
+        });
+    },
 
     deleteRenter(renterId) {
       if (confirm("Are you sure you want to delete this renter?")) {
         RenterService.deleteRenter(renterId)
           .then(() => {
             alert("Renter deleted successfully.");
-            this.renters = this.renters.filter(r => r.renter_id !== renterId); // Remove renter from list
+            this.renters = this.renters.filter((r) => r.renter_id !== renterId); // Remove renter from list
           })
           .catch((error) => {
             console.error("Error deleting renter:", error);
@@ -197,9 +258,8 @@ h2 {
 }
 
 button:hover {
-    background-color: black;
+  background-color: black;
 }
-
 
 button {
   padding: 10px 15px;
@@ -209,8 +269,6 @@ button {
   border-radius: 4px;
   cursor: pointer;
 }
-
-
 
 /* Loader */
 #spinner {
@@ -225,8 +283,8 @@ button {
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  margin: 20px auto; 
-  width: 400px; 
+  margin: 20px auto;
+  width: 400px;
 }
 
 .create-renter form,
@@ -251,11 +309,8 @@ button {
 }
 
 #create-renter-button:hover {
-    background-color: black;
-  }
-
-
-
+  background-color: black;
+}
 
 /* Search bar styles */
 .renterSearch {
@@ -285,8 +340,6 @@ button {
   background-color: black;
 }
 
-
-
 /* Renters container */
 .renters-container {
   display: flex;
@@ -296,9 +349,6 @@ button {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
-
-
 
 /* button styles for renter cards */
 .renter-card button {
@@ -338,14 +388,11 @@ button {
   text-align: center; /* Center text inside the renter card */
 }
 
-#update-renter-card, 
+#update-renter-card,
 #delete-renter-card {
   background-color: #4a86c2ff;
-  color:  white/* Sets text color for both elements */
+  color: white; /* Sets text color for both elements */
 }
-
-
-
 
 /**Update form & cancel button */
 #update-renter-form-button {
@@ -354,8 +401,7 @@ button {
 }
 
 #update-renter-form-button:hover {
-  background-color: black; 
-  
+  background-color: black;
 }
 
 #cancel-form-button {
@@ -365,10 +411,67 @@ button {
 }
 
 #cancel-form-button:hover {
-  background-color: black; 
-  
+  background-color: black;
 }
 
 
+/* Mobile view 425px or smaller */
+@media (max-width: 425px) {
+  body {
+    padding: 10px; 
+  }
+
+  /* Adjust form container widths */
+  .create-renter, 
+  .update-renter {
+    width: 100%; 
+    padding: 15px; 
+    margin: 10px auto;
+  }
+
+  /* Input fields on mobile */
+  .create-renter input, 
+  .update-renter input, 
+  .create-renter textarea, 
+  .update-renter textarea {
+    width: 100%; 
+    font-size: 14px; 
+  }
+
+  /* Buttons full width for mobile */
+  button {
+    width: 100%; 
+    margin-bottom: 10px; 
+    font-size: 14px; 
+  }
+
+  /* Search bar on mobile */
+  .renterSearch {
+    flex-direction: column; 
+    align-items: stretch; 
+  }
+
+  #searchRenterBar {
+    width: 100%; 
+    margin-bottom: 10px; 
+  }
+
+  #searchRenterButton {
+    width: 100%; /* Full width button */
+    padding: 10px;
+  }
+
+  /* Renters container */
+  .renters-container {
+    flex-direction: column; 
+    gap: 10px; /* Reduce gap between cards */
+  }
+
+  /* Renter cards on mobile */
+  .renter-card {
+    width: 100%; 
+    padding: 15px; /* Adjust padding */
+  }
+}
 
 </style>

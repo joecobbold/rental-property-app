@@ -42,18 +42,6 @@ export default {
 
 
 <style>
-#main-div {
-  /* main grid items */
-  grid-area: main;
-  background-color: #ffffff;
-  overflow: auto;
-}
 
-@media screen and (max-width: 425px) {
-  /* main app adjustments */
-  .rental-property-app {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
-  }
-}
+
 </style>

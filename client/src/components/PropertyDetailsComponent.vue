@@ -53,6 +53,21 @@ export default {
   width: 100%;
 }
 
+.selected-property-details {
+  text-align: left;
+  padding: 20px;
+}
+
+/* Styling the image to be responsive */
+.selected-property-details img {
+  width: 100%;
+  height: auto;
+  max-width: 500px;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+
 #properties-container {
   /*properties-container*/
   display: flex;
@@ -103,5 +118,27 @@ export default {
   font-size: 1em;
   color: #666;
 }
+
+/*Mobile View Styling*/
+@media (max-width: 425px) {
+  .selected-property-details {
+    padding: 10px;
+  }
+
+  .selected-property-details h2 {
+    font-size: 1.25em; /* Adjust heading size for smaller screens */
+  }
+
+  .selected-property-details img {
+    max-width: 100%; /* Ensure the image scales properly */
+    height: auto;
+  }
+
+  .selected-property-details p {
+    font-size: 0.9em; /* Smaller text size for readability */
+    line-height: 1.4;
+  }
+}
+
 </style>
   
