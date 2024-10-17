@@ -61,7 +61,7 @@
 import PropertyDetailsComponent from "../components/PropertyDetailsComponent.vue";
 import PropertyService from "../services/PropertyService.js";
 import LoadingSpinner from "../components/LoadingSpinner.vue";
-import RentalAgreementService from "../services/AgreementService.js";
+import AgreementService from "../services/AgreementService.js";
 
 export default {
   components: {
@@ -93,7 +93,7 @@ export default {
         });
     },
     getRentalAgreements(propertyId) {
-      RentalAgreementService.getRentalAgreementsByPropertyId(propertyId)
+      AgreementService.getRentalAgreementsByPropertyId(propertyId)
         .then((response) => {
           this.rentalAgreements = response.data;
         })

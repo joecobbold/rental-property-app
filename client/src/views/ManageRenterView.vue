@@ -4,7 +4,7 @@
   </div>
 
   <!-- Create Renter Form -->
-  <div class="create-renter" v-if=" isAdmin && !isUpdating">
+  <div class="create-renter" v-if="isAdmin && !isUpdating">
     <h2>Create Renter</h2>
     <form @submit.prevent="createRenter">
       <input
@@ -91,12 +91,8 @@
     <button id="searchRenterButton" @click="searchRenter">Search</button>
   </div>
 
-
-   <!-- Loading Spinner -->
-   <div v-if="isLoading">Loading...</div>
-
-    <!-- Search Results For Renter -->
-    <div v-if="isSearched && renters.length > 0" class="search-results">
+  <!-- Search Results For Renter -->
+  <div v-if="isSearched && renters.length > 0" class="search-results">
     <h2>Search Results:</h2>
     <div v-for="renter in renters" :key="renter.renter_id" class="renter-card">
       <h3>{{ renter.first_name + " " + renter.last_name }}</h3>
@@ -109,6 +105,22 @@
   <!-- No Results Found For Renter-->
   <div v-else-if="isSearched && searchId && renters.length === 0">
     <p>No renter found with ID {{ searchId }}.</p>
+  </div>
+
+  <div v-if="isSearched && renters.length > 0" class="search-results">
+    <h2>Your Agreement(s):</h2>
+    <div
+      v-for="agreement in agreements"
+      :key="agreement.rental_agreement_id"
+      class="renter-card"
+    >
+      <p><strong>Agreement ID:</strong> {{ agreement.rental_agreement_id }}</p>
+      <p><strong>Renter ID:</strong> {{ agreement.renter_id }}</p>
+      <p><strong>Start Date:</strong> {{ agreement.start_date }}</p>
+      <p><strong>End Date:</strong> {{ agreement.end_date }}</p>
+      <p><strong>Deposit Amount:</strong> {{ agreement.deposit_amount }}</p>
+      <p><strong>Agreement:</strong> {{ agreement.agreement }}</p>
+    </div>
   </div>
 
   <div v-if="isAdmin" class="renters-container">
@@ -133,11 +145,13 @@
 <script>
 import RenterService from "../services/RenterService.js";
 import LoadingSpinner from "../components/LoadingSpinner.vue";
+import AgreementService from "../services/AgreementService";
 
 export default {
   data() {
     return {
       renters: [],
+      agreements: [],
       isLoading: true,
       isUpdating: false, // New property to track if in update mode
       editRenterId: null,
@@ -245,33 +259,33 @@ export default {
     // },
 
     searchRenter() {
-
       //for debugging
       console.log("Search function triggered");
       console.log("Search input:", this.searchId);
-  if (!this.searchId) {
-    alert("Please enter a renter ID");
-    return;
-  }
-  this.isLoading = true;
- //this.isSearched = true;
-  this.renters = []; //clear local data
- 
-  RenterService.getRenterById(this.searchId)
-    .then((response) => {
-      this.renters = [response.data]; // Display the found renter
-      
-    })
-    .catch((error) => {
-      console.error("Error searching renter:", error);
-      alert("Renter not found or error occurred.");
-    })
-    .finally(() => {
-      this.isLoading = false;
-      this.isSearched = true;
-    });
-},
+      if (!this.searchId) {
+        alert("Please enter a renter ID");
+        return;
+      }
+      this.isLoading = true;
+      //this.isSearched = true;
+      this.renters = []; //clear local data
 
+      RenterService.getRenterById(this.searchId).then((response) => {
+        this.renters = [response.data]; // Display the found renter
+      });
+      AgreementService.getRentalAgreementsByRenterId(this.searchId)
+        .then((response) => {
+          this.agreements = response.data;
+        })
+        .catch((error) => {
+          console.error("Error searching renter:", error);
+          alert("Renter not found or error occurred.");
+        })
+        .finally(() => {
+          this.isLoading = false;
+          this.isSearched = true;
+        });
+    },
 
     resetNewRenter() {
       this.newRenter = {
@@ -466,55 +480,54 @@ button {
 }
 
 .search-results {
-  display: flex; 
-  flex-direction: column; 
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center; 
-  margin: 20px auto; 
+  justify-content: center;
+  margin: 20px auto;
   max-width: 800px;
   text-align: center;
 }
 
-
 /* Mobile view 425px or smaller */
 @media (max-width: 425px) {
   body {
-    padding: 10px; 
+    padding: 10px;
   }
 
   /* Adjust form container widths */
-  .create-renter, 
+  .create-renter,
   .update-renter {
-    width: 100%; 
-    padding: 15px; 
+    width: 100%;
+    padding: 15px;
     margin: 10px auto;
   }
 
   /* Input fields on mobile */
-  .create-renter input, 
-  .update-renter input, 
-  .create-renter textarea, 
+  .create-renter input,
+  .update-renter input,
+  .create-renter textarea,
   .update-renter textarea {
-    width: 100%; 
-    font-size: 14px; 
+    width: 100%;
+    font-size: 14px;
   }
 
   /* Buttons full width for mobile */
   button {
-    width: 100%; 
-    margin-bottom: 10px; 
-    font-size: 14px; 
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 14px;
   }
 
   /* Search bar on mobile */
   .renterSearch {
-    flex-direction: column; 
-    align-items: stretch; 
+    flex-direction: column;
+    align-items: stretch;
   }
 
   #searchRenterBar {
-    width: 100%; 
-    margin-bottom: 10px; 
+    width: 100%;
+    margin-bottom: 10px;
   }
 
   #searchRenterButton {
@@ -524,15 +537,14 @@ button {
 
   /* Renters container */
   .renters-container {
-    flex-direction: column; 
+    flex-direction: column;
     gap: 10px; /* Reduce gap between cards */
   }
 
   /* Renter cards on mobile */
   .renter-card {
-    width: 100%; 
+    width: 100%;
     padding: 15px; /* Adjust padding */
   }
 }
-
 </style>
