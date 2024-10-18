@@ -380,7 +380,7 @@ footer {
   grid-area: footer;
   background-color: #e4853c;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 12px;
   text-align: center;
   height: 76px;
   display: flex;
@@ -389,6 +389,7 @@ footer {
   align-items: center;
   padding: 5px 10px;
   box-sizing: border-box;
+  
 }
 
 footer h3 {
