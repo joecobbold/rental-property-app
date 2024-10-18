@@ -66,4 +66,19 @@ export default {
   right: 10px;
   cursor: pointer;
 }
+
+/* Mobile Styles */
+@media (max-width: 425px) {
+  .modal-content {
+    width: 90%; /* Reduce width for mobile */
+    padding: 15px; /* Adjust padding */
+    font-size: 14px; /* Optional: Adjust font size for readability */
+  }
+
+  .close {
+    top: 5px; /* Adjust close button position for mobile */
+    right: 5px;
+  }
+
+}
 </style>

@@ -5,7 +5,7 @@
       <!-- Selected property details -->
       <div v-if="property" class="selected-property-details">
         <h2>Property Details for {{ property.address }}</h2>
-        <img v-bind:src="property.imageUrl" alt="Selected Property Image" />
+        <img v-bind:src="'../' + property.imageUrl" alt="Selected Property Image" />
         <p><strong>Property Id:</strong> {{ property.propertyId }}</p>
         <p><strong>City:</strong> {{ property.city }}</p>
         <p><strong>State:</strong> {{ property.state }}</p>

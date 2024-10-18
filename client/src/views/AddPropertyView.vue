@@ -122,7 +122,7 @@ export default {
 };
 </script>
   
-  <style scoped>
+<style scoped>
 .add-property {
   max-width: 600px;
   margin: 40px auto;
@@ -150,6 +150,7 @@ input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  width: 100%; 
 }
 
 button {
@@ -165,16 +166,22 @@ button:hover {
   background-color: black;
 }
 
-#propertyImageUrl {
-  width: 400px;
-}
-
-#propertyDesc {
-  width: 400px;
-}
-
+#propertyImageUrl, 
+#propertyDesc, 
 #propertyAddress {
-  width: 400px;
+  width: 100%; 
+}
+
+@media (max-width: 600px) {
+  .add-property {
+    margin: 20px 10px; 
+    padding: 15px; 
+  }
+
+  button {
+    padding: 15px;
+  }
 }
 </style>
+
   

@@ -287,7 +287,7 @@ export default {
 };
 </script>
   
-  <style>
+  <style scoped>
 /* General styles */
 
 body {
@@ -301,18 +301,7 @@ h2 {
   color: #333;
 }
 
-button:hover {
-  background-color: black;
-}
 
-button {
-  padding: 10px 15px;
-  background-color: #4a86c2ff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
 
 /* Loader */
 #spinner {
@@ -358,6 +347,7 @@ button {
 
 /* Search Bar Styles */
 .agreementSearch {
+  margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
@@ -408,6 +398,7 @@ button {
 .agreement-card .create-agreement-button {
   background-color: #28a745; /* Green color for Create Renter button */
   color: white;
+  padding: 4px; /* Reduced padding to 4px */
 }
 
 .agreement-card .create-agreement-button:hover {
@@ -458,6 +449,15 @@ button {
   background-color: black;
 }
 
+.search-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  max-width: 800px;
+  text-align: center;
+}
 
 /* Mobile view  425px or smaller */
 @media (max-width: 425px) {
@@ -468,41 +468,64 @@ button {
   /* Create/Update Agreement Form */
   .create-agreement,
   .update-agreement {
-    width: 100%; 
-    padding: 15px; 
-    margin: 10px 0; 
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
   }
 
   /* Input fields in form */
   .create-agreement input,
-  .update-agreement input {
-    width: 100%; 
-    padding: 8px; 
+  .update-agreement input,
+  .create-renter textarea,
+  .update-renter textarea {
+    width: 100%;
+    font-size: 14px;
   }
 
   /* Button sizes */
   button {
-    width: 100%; 
-    padding: 12px; 
-    font-size: 14px; 
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 14px;
   }
 
   /* Search bar adjustments */
   .agreementSearch {
     flex-direction: column; /* Stack the input and button */
-    align-items: stretch;
+    align-items: center;
+    text-align: center; /* Add this to ensure center alignment */
   }
 
   #searchAgreementBar {
-    width: 100%; 
-    margin-bottom: 10px; 
+    width: 100%;
+    max-width: 300px;
+  }
+
+  #searchAgreementButton {
+    width: 100%; /* Full width button */
+    margin-top: 10px;
+    margin-left: 0; /* Remove the left margin on mobile */
   }
 
   /* Agreement Cards */
   .agreements-container {
     flex-direction: column;
+    gap: 10px;
   }
-}
 
+  /* Agreements cards on mobile */
+  .agreement-card {
+    width: 100%;
+    padding: 15px; /* Adjust padding */
+  }
+
+  .menu-toggle {
+    background-color: #e4853cff;
+    color: white; /* Adjust text color if needed */
+  }
+
+
+  
+}
 </style>
   

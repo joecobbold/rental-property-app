@@ -309,7 +309,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 /* General styles */
 body {
   font-family: Arial, sans-serif;
@@ -534,6 +534,7 @@ button {
   #searchRenterButton {
     width: 100%; /* Full width button */
     padding: 10px;
+    margin-left: 0; /* Remove the left margin on mobile */
   }
 
   /* Renters container */

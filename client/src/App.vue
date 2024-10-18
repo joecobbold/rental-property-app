@@ -161,13 +161,25 @@ export default {
 
 <style>
 /* Global settings */
+button:hover {
+  background-color: black;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #4a86c2ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
 body {
   background-color: #ffffff;
 }
 
 .menu-items {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 #spinner {
@@ -207,6 +219,8 @@ header {
 }
 
 .auth-links {
+  border-radius: 4px;
+  background-color: #4a86c2ff;
   justify-self: end;
 }
 
@@ -444,7 +458,6 @@ footer a:hover {
   .menu-toggle {
     display: block;
     color: white;
-    background-color: #414e58;
     padding: 10px;
     text-align: center;
     cursor: pointer;
@@ -498,16 +511,26 @@ footer a:hover {
 
   /*Footer*/
   footer {
-    font-size: 10px; /* Smaller font for mobile */
-    padding: 10px;
+    font-size: 20px; /* Smaller font for mobile */
+    padding: 5px;
   }
 
   footer h3 {
-    margin: 10px 0;
+    font-size: 12px; /* Make the heading smaller */
+    margin: 10px 0 5px 0; /* Reduce top margin */
   }
 
   footer p {
-    margin: 5px 0;
+    font-size: 10px; /* Reduce paragraph text size */
+    margin: 2px 0; /* Reduce margins for better spacing */
+  }
+
+  footer a {
+    font-size: 10px; /* Make links smaller */
+  }
+
+  .social-icon {
+    font-size: 14px; /* Make social icons smaller */
   }
 }
 </style>
