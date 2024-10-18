@@ -11,6 +11,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCartPlus, faTrashCan, faXmark, faMagnifyingGlass, faRotate, faTable, faGrip }
   from '@fortawesome/free-solid-svg-icons'
+import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons' 
+
 
 /* add icons to the library */
 library.add(faCartPlus);
@@ -20,6 +22,7 @@ library.add(faMagnifyingGlass);
 library.add(faRotate);
 library.add(faTable);
 library.add(faGrip);
+library.add(faFacebookSquare)
 
 
 

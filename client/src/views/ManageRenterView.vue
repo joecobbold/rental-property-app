@@ -91,8 +91,27 @@
     <button id="searchRenterButton" @click="searchRenter">Search</button>
   </div>
 
-  <!-- Search Results For Renter -->
-  <div v-if="isSearched && renters.length > 0" class="search-results">
+  <!--Admin only see's this-->
+  <div v-if="isAdmin" class="renters-container">
+    <div v-for="renter in renters" :key="renter.renter_id" class="renter-card">
+      <h3>{{ renter.first_name + " " + renter.last_name }}</h3>
+      <p><strong>Renter Id: </strong>{{ renter.renter_id }}</p>
+      <p><strong>Email: </strong>{{ renter.email }}</p>
+      <p><strong>Profile Details: </strong>{{ renter.profile_details }}</p>
+      <button
+        id="update-renter-button"
+        @click="openUpdateModal(renter.renter_id)"
+      >
+        Update Renter
+      </button>
+      <button id="delete-renter-button" @click="deleteRenter(renter.renter_id)">
+        Delete Renter
+      </button>
+    </div>
+  </div>
+
+    <!-- Search Results For Renter -->
+    <div v-if="isSearched && renters.length > 0" class="search-results">
     <h2>Search Results:</h2>
     <div v-for="renter in renters" :key="renter.renter_id" class="renter-card">
       <h3>{{ renter.first_name + " " + renter.last_name }}</h3>
@@ -120,24 +139,6 @@
       <p><strong>End Date:</strong> {{ agreement.end_date }}</p>
       <p><strong>Deposit Amount:</strong> {{ agreement.deposit_amount }}</p>
       <p><strong>Agreement:</strong> {{ agreement.agreement }}</p>
-    </div>
-  </div>
-
-  <div v-if="isAdmin" class="renters-container">
-    <div v-for="renter in renters" :key="renter.renter_id" class="renter-card">
-      <h3>{{ renter.first_name + " " + renter.last_name }}</h3>
-      <p><strong>Renter Id: </strong>{{ renter.renter_id }}</p>
-      <p><strong>Email: </strong>{{ renter.email }}</p>
-      <p><strong>Profile Details: </strong>{{ renter.profile_details }}</p>
-      <button
-        id="update-renter-button"
-        @click="openUpdateModal(renter.renter_id)"
-      >
-        Update Renter
-      </button>
-      <button id="delete-renter-button" @click="deleteRenter(renter.renter_id)">
-        Delete Renter
-      </button>
     </div>
   </div>
 </template>

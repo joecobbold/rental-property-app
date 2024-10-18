@@ -13,9 +13,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 public class JdbcRentalAgreementDaoTests extends BaseDaoTests{
-    private static final RentalAgreement RENTAL_AGREEMENT_1 = new RentalAgreement(1, 1, 1, Date.valueOf("2024-08-01"), Date.valueOf("2025-07-31") , 1500.00, 2000.00,"Tenant agrees to pay rent on the 1st of each month." );
+    private static final RentalAgreement RENTAL_AGREEMENT_1 = new RentalAgreement(5001, 1001, 3001, Date.valueOf("2024-08-01"), Date.valueOf("2025-07-31") , 1500.00, 2000.00,"Tenant agrees to pay rent on the 1st of each month." );
 
-    private static final RentalAgreement RENTAL_AGREEMENT_9 = new RentalAgreement(9, 1, 9, Date.valueOf("2024-09-01"), Date.valueOf("2025-08-31") , 1800.00, 2500.00,"Tenant agrees to maintain the property in good condition." );
+    private static final RentalAgreement RENTAL_AGREEMENT_9 = new RentalAgreement(5009, 1001, 3009, Date.valueOf("2024-09-01"), Date.valueOf("2025-08-31") , 1800.00, 2500.00,"Tenant agrees to maintain the property in good condition." );
 
 
 
@@ -35,7 +35,7 @@ public class JdbcRentalAgreementDaoTests extends BaseDaoTests{
 
     @Test
     public void getRentalAgreementById() {
-        RentalAgreement agreement = rentalAgreementDao.getRentalAgreementById(1);
+        RentalAgreement agreement = rentalAgreementDao.getRentalAgreementById(5001);
         assertNotNull(agreement);
         assertEquals(RENTAL_AGREEMENT_1, agreement);
     }
@@ -44,28 +44,28 @@ public class JdbcRentalAgreementDaoTests extends BaseDaoTests{
 
     @Test
     public void createRentalAgreement() {
-        RentalAgreement newAgreement = new RentalAgreement(10,1, 1, Date.valueOf("2024-09-01"), Date.valueOf("2024-10-10"), 1500.00, 2000.00, "Tenant agrees to pay rent on the 1st of each month.");
+        RentalAgreement newAgreement = new RentalAgreement(5010,1001, 3001, Date.valueOf("2024-09-01"), Date.valueOf("2024-10-10"), 1500.00, 2000.00, "Tenant agrees to pay rent on the 1st of each month.");
 
         RentalAgreement createdAgreement = rentalAgreementDao.createRentalAgreement(newAgreement);
         if(createdAgreement != null){
-            assertEquals(newAgreement, rentalAgreementDao.getRentalAgreementById(10));
+            assertEquals(newAgreement, rentalAgreementDao.getRentalAgreementById(5010));
         }
     }
 
 
     @Test
     public void updateRentalAgreement() {
-        RentalAgreement agreementToUpdate = rentalAgreementDao.getRentalAgreementById(9);
+        RentalAgreement agreementToUpdate = rentalAgreementDao.getRentalAgreementById(5009);
         agreementToUpdate.setAgreement("Agreement updated");
         agreementToUpdate.setDeposit_amount(1600.00);
         agreementToUpdate.setMonthly_rent(1200.00);
-        agreementToUpdate.setProperty_id(8);
-        agreementToUpdate.setRenter_id(2);
+        agreementToUpdate.setProperty_id(3008);
+        agreementToUpdate.setRenter_id(1002);
         agreementToUpdate.setStart_date(Date.valueOf("2024-09-10"));
         agreementToUpdate.setEnd_date(Date.valueOf("2025-09-30"));
         boolean updatedAgreement = rentalAgreementDao.updateRentalAgreement(agreementToUpdate);
         if(updatedAgreement){
-            assertEquals(agreementToUpdate, rentalAgreementDao.getRentalAgreementById(9));
+            assertEquals(agreementToUpdate, rentalAgreementDao.getRentalAgreementById(5009));
         } else {
             Assert.fail("Update failed");
         }
@@ -74,10 +74,10 @@ public class JdbcRentalAgreementDaoTests extends BaseDaoTests{
 
     @Test
     public void deleteRentalAgreement() {
-        boolean rowsDeleted = rentalAgreementDao.deleteRentalAgreement(1);
+        boolean rowsDeleted = rentalAgreementDao.deleteRentalAgreement(5001);
         if(rowsDeleted){
             try{
-                RentalAgreement deletedAgreement = rentalAgreementDao.getRentalAgreementById(1);
+                RentalAgreement deletedAgreement = rentalAgreementDao.getRentalAgreementById(5001);
             } catch( EmptyResultDataAccessException e){
                 Assert.assertTrue(true);
 
@@ -91,7 +91,7 @@ public class JdbcRentalAgreementDaoTests extends BaseDaoTests{
 
     @Test
     public void getRentalAgreementsByRenterId() {
-        List<RentalAgreement> agreements = rentalAgreementDao.getRentalAgreementsByRenterId(1);
+        List<RentalAgreement> agreements = rentalAgreementDao.getRentalAgreementsByRenterId(1001);
         Assert.assertEquals(2, agreements.size());
         assertEquals(RENTAL_AGREEMENT_1, agreements.get(0));
         assertEquals(RENTAL_AGREEMENT_9, agreements.get(1));
@@ -99,7 +99,7 @@ public class JdbcRentalAgreementDaoTests extends BaseDaoTests{
 
     @Test
     public void getRentalAgreementsByPropertyId() {
-        List<RentalAgreement> agreements = rentalAgreementDao.getRentalAgreementsByPropertyId(1);
+        List<RentalAgreement> agreements = rentalAgreementDao.getRentalAgreementsByPropertyId(3001);
         Assert.assertEquals(1, agreements.size());
         assertEquals(RENTAL_AGREEMENT_1, agreements.get(0));
 

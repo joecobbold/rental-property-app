@@ -77,6 +77,7 @@ public class JdbcPropertyDao implements PropertyDao{
 
     @Override
     public boolean deleteProperty(int id) {
+        int rowsToDelete = template.update("DELETE FROM rental_agreement WHERE property_id = ?", id);
         int rowsAffected = template.update("DELETE FROM property WHERE property_id = ?", id);
         return rowsAffected > 0;
     }

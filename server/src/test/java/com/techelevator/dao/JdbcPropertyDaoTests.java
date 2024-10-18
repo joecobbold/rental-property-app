@@ -12,11 +12,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 public class JdbcPropertyDaoTests extends BaseDaoTests{
+    private static final Property PROPERTY_1 = new Property(3001, "1602 Park Place", "Columbus", "OH", "43081", 1530.00, 2, 2, 1500, true, false, "Cozy family home with backyard", "src/assets/propertyImages/1602.jpg");
 
-    private static final Property PROPERTY_1 = new Property(1, "123 Main St", "Anytown", "CA", "12345", 1500.00, 3, 2, 1500, true, false, "Cozy family home with backyard", "/propertyImages/1602.png");
+    //private static final Property PROPERTY_1 = new Property(3001, "123 Main St", "Anytown", "CA", "12345", 1500.00, 3, 2, 1500, true, false, "Cozy family home with backyard", "/propertyImages/1602.png");
 
 
-    private static final Property PROPERTY_2 = new Property(2,  "456 Oak Ave", "Sometown", "NY", "67890", 1800.00, 4, 3, 2000, true, true, "Spacious house with basement", "/propertyImages/2.png");
+    private static final Property PROPERTY_2 = new Property(3002,  "456 Oak Ave", "Sometown", "NY", "67890", 1800.00, 4, 3, 2000, true, true, "Spacious house with basement", "src/assets/propertyImages/2.jpg");
 
 
 
@@ -39,18 +40,18 @@ public class JdbcPropertyDaoTests extends BaseDaoTests{
 
     @Test
     public void getPropertyById() {
-        Property property = propertyDao.getPropertyById(1);
+        Property property = propertyDao.getPropertyById(3001);
         assertNotNull(property);
         assertEquals(PROPERTY_1, property);
     }
 
     @Test
     public void createProperty() {
-        Property newProperty = new Property(11,"123 Main St", "Anytown", "CA", "12345", 1500.00, 3, 2, 1500, true, false, "Cozy family home with backyard", "/propertyImages/11.jpg");
+        Property newProperty = new Property(3011,"123 Main St", "Anytown", "CA", "12345", 1500.00, 3, 2, 1500, true, false, "Cozy family home with backyard", "/propertyImages/11.jpg");
 
         Property createdAgreement = propertyDao.createProperty(newProperty);
         if(createdAgreement != null){
-            assertEquals(newProperty, propertyDao.getPropertyById(11));
+            assertEquals(newProperty, propertyDao.getPropertyById(3011));
         }
 
     }
@@ -60,7 +61,7 @@ public class JdbcPropertyDaoTests extends BaseDaoTests{
 
     @Test
     public void updateProperty() {
-        Property propertyToUpdate = propertyDao.getPropertyById(2);
+        Property propertyToUpdate = propertyDao.getPropertyById(3002);
 
         propertyToUpdate.setAddress("123 Update");
         propertyToUpdate.setCity("Columbus");
@@ -76,7 +77,7 @@ public class JdbcPropertyDaoTests extends BaseDaoTests{
 
         boolean updatedAgreement = propertyDao.updateProperty(propertyToUpdate);
         if(updatedAgreement){
-            assertEquals(propertyToUpdate, propertyDao.getPropertyById(2));
+            assertEquals(propertyToUpdate, propertyDao.getPropertyById(3002));
         } else {
             Assert.fail("Update failed");
         }
@@ -87,10 +88,10 @@ public class JdbcPropertyDaoTests extends BaseDaoTests{
 
     @Test
     public void deleteProperty() {
-        boolean rowsDeleted = propertyDao.deleteProperty(1);
+        boolean rowsDeleted = propertyDao.deleteProperty(3001);
         if(rowsDeleted){
             try{
-                Property deletedProperty = propertyDao.getPropertyById(1);
+                Property deletedProperty = propertyDao.getPropertyById(3001);
             } catch( EmptyResultDataAccessException e){
                 Assert.assertTrue(true);
 

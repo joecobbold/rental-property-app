@@ -13,7 +13,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class JdbcRenterDaoTests extends BaseDaoTests {
 
-    private static final Renter RENTER_1 = new Renter(1, "John", "Doe", "john.doe@example.com", "123-456-7890", "Likes to keep the house clean");
+    private static final Renter RENTER_1 = new Renter(1001, "John", "Doe", "john.doe@example.com", "123-456-7890", "Likes to keep the house clean");
 
     private JdbcRenterDao renterDao;
 
@@ -33,7 +33,7 @@ public class JdbcRenterDaoTests extends BaseDaoTests {
 
     @Test
     public void getRenterById() {
-        Renter renter = renterDao.getRenterById(1);
+        Renter renter = renterDao.getRenterById(1001);
         assertNotNull(renter);
         assertEquals(RENTER_1, renter);
     }
@@ -41,11 +41,11 @@ public class JdbcRenterDaoTests extends BaseDaoTests {
 
     @Test
     public void createRenter() {
-        Renter newRenter = new Renter(9, "Joe", "Cobbold", "joe.cobbold@example.com", "111-222-3333", "Joe created this new Renter");
+        Renter newRenter = new Renter(1009, "Joe", "Cobbold", "joe.cobbold@example.com", "111-222-3333", "Joe created this new Renter");
 
         Renter createdRenter = renterDao.createRenter(newRenter);
         if(createdRenter != null){
-            assertEquals(newRenter, renterDao.getRenterById(9));
+            assertEquals(newRenter, renterDao.getRenterById(1009));
         }
     }
 
@@ -58,7 +58,7 @@ public class JdbcRenterDaoTests extends BaseDaoTests {
     @Test
     public void updateRenter() {
         // Retrieve the existing renter to update
-        Renter renterToUpdate = renterDao.getRenterById(1);
+        Renter renterToUpdate = renterDao.getRenterById(1001);
 
         // Modify properties of the renter
         renterToUpdate.setFirst_name("UpdatedFirstName");
@@ -69,7 +69,7 @@ public class JdbcRenterDaoTests extends BaseDaoTests {
 
         boolean updatedRenter = renterDao.updateRenter(renterToUpdate);
         if (updatedRenter) {
-            assertEquals(renterToUpdate, renterDao.getRenterById(1));
+            assertEquals(renterToUpdate, renterDao.getRenterById(1001));
         } else {
             Assert.fail("Update failed");
         }
@@ -80,10 +80,10 @@ public class JdbcRenterDaoTests extends BaseDaoTests {
 
     @Test
     public void deleteRenter() {
-        boolean rowsDeleted = renterDao.deleteRenter(1);
+        boolean rowsDeleted = renterDao.deleteRenter(1001);
         if(rowsDeleted){
             try{
-                Renter deletedRenter = renterDao.getRenterById(1);
+                Renter deletedRenter = renterDao.getRenterById(1001);
             } catch( EmptyResultDataAccessException e){
                 Assert.assertTrue(true);
 

@@ -10,9 +10,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.List;
 
 public class JdbcUserDaoTests extends BaseDaoTests {
-    protected static final User USER_1 = new User(1, "user1", "user1", "ROLE_USER");
-    protected static final User USER_2 = new User(2, "user2", "user2", "ROLE_USER");
-    private static final User USER_3 = new User(3, "user3", "user3", "ROLE_USER");
+    protected static final User USER_1 = new User(1, "user", "$2a$10$tmxuYYg1f5T0eXsTPlq/V.DJUKmRHyFbJ.o.liI1T35TFbjs2xiem", "ROLE_USER");
+    protected static final User USER_2 = new User(2, "admin", "$2a$10$tmxuYYg1f5T0eXsTPlq/V.DJUKmRHyFbJ.o.liI1T35TFbjs2xiem", "ROLE_ADMIN");
+    //private static final User USER_3 = new User(3, "user", "user", "ROLE_USER");
 
     private JdbcUserDao dao;
 
@@ -58,25 +58,25 @@ public class JdbcUserDaoTests extends BaseDaoTests {
         List<User> users = dao.getUsers();
 
         Assert.assertNotNull("getUsers returned a null list of users", users);
-        Assert.assertEquals("getUsers returned a list with the incorrect number of users", 3, users.size());
-        Assert.assertEquals("getUsers returned a list in incorrect order", USER_1, users.get(0));
-        Assert.assertEquals("getUsers returned a list in incorrect order", USER_2, users.get(1));
-        Assert.assertEquals("getUsers returned a list in incorrect order", USER_3, users.get(2));
+        Assert.assertEquals("getUsers returned a list with the incorrect number of users", 2, users.size());
+        Assert.assertEquals("getUsers returned a list in incorrect order", USER_1, users.get(1));
+        Assert.assertEquals("getUsers returned a list in incorrect order", USER_2, users.get(0));
+        //Assert.assertEquals("getUsers returned a list in incorrect order", USER_3, users.get(2));
     }
 
     @Test(expected = DaoException.class)
     public void create_user_with_null_username() {
-        dao.createUser(new User(null, USER_3.getHashedPassword(), "ROLE_USER"));
+        dao.createUser(new User(null, USER_1.getHashedPassword(), "ROLE_USER"));
     }
 
     @Test(expected = DaoException.class)
     public void create_user_with_existing_username() {
-        dao.createUser(new User(USER_1.getUsername(), USER_3.getHashedPassword(), "ROLE_USER"));
+        dao.createUser(new User(USER_1.getUsername(), USER_1.getHashedPassword(), "ROLE_USER"));
     }
 
     @Test(expected = DaoException.class)
     public void create_user_with_null_password() {
-        dao.createUser(new User(USER_3.getUsername(), null, "ROLE_USER"));
+        dao.createUser(new User(USER_1.getUsername(), null, "ROLE_USER"));
     }
 
     @Test
